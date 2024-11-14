@@ -39,6 +39,8 @@
            	brews = [
                 # CLI to search for apps and their ID on the App Store
                 "mas"
+                # Shell history search
+                "mcfly"
            	];
            	# GUI apps go here
            	casks = [
