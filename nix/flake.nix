@@ -23,6 +23,7 @@
                 pkgs.mkalias
                 pkgs.obsidian
                 pkgs.openssh
+                pkgs.pure-prompt
                 pkgs.stow
                 pkgs.vim
                 pkgs.zed-editor
