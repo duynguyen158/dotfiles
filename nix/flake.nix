@@ -20,6 +20,7 @@
         environment.systemPackages =
             [
                 pkgs.git
+                pkgs.nixd
                 pkgs.mkalias
                 pkgs.obsidian
                 pkgs.openssh
