@@ -6,6 +6,7 @@
         enableCompletion = true;
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
+        
 
         initExtra = ''
             # zsh pure theme
@@ -14,6 +15,23 @@
 
             # McFly
             eval "$(mcfly init zsh)"
+            
+            # Enable up/down arrow history search
+            autoload -U up-line-or-beginning-search
+            autoload -U down-line-or-beginning-search
+            zle -N up-line-or-beginning-search
+            zle -N down-line-or-beginning-search
+            bindkey "^[[A" up-line-or-beginning-search    # Up arrow
+            bindkey "^[[B" down-line-or-beginning-search  # Down arrow
         '';
+        
+        oh-my-zsh = {
+            enable = true;
+            plugins = [
+                "git"
+                "sudo"
+                "rust"
+            ];
+        };
     };
 }
