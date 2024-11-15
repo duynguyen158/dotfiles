@@ -1,7 +1,9 @@
 { ... }:
 
 {
+    # Some configs need to be managed using .config, in which case use stow
     imports = [
+        ./git.nix
         ./zsh.nix
     ];
 
