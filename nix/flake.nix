@@ -3,6 +3,7 @@
 
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+        nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
         nix-darwin = {
             url = "github:LnL7/nix-darwin";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +14,7 @@
         };
     };
 
-    outputs = inputs@{ self, nix-darwin, nixpkgs, ... }:
+    outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, home-manager, ... }:
     let
         configuration = { pkgs, ... }: {
             # Enable installing packages with an unfree license
@@ -35,6 +36,7 @@
                     pkgs.nixd
                     pkgs.openssh
                     pkgs.pure-prompt
+                    pkgs.stow
                     pkgs.vim
                 ];
 
@@ -79,27 +81,6 @@
                 pam.enableSudoTouchIdAuth = true;
             };
 
-            # # Allows Spotlight Search to discover installed apps
-            # system.activationScripts.applications.text = let
-            #     env = pkgs.buildEnv {
-            #         name = "system-applications";
-            #         paths = config.environment.systemPackages;
-            #         pathsToLink = "/Applications";
-            #     };
-            # in
-            #     pkgs.lib.mkForce ''
-            #         # Set up applications.
-            #         echo "setting up /Applications..." >&2
-            #         rm -rf /Applications/Nix\ Apps
-            #         mkdir -p /Applications/Nix\ Apps
-            #         find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-            #         while read -r src; do
-            #             app_name=$(basename "$src")
-            #             echo "copying $src" >&2
-            #             ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-            #         done
-            #     '';
-
             # Enable alternative shell support in nix-darwin.
             # programs.fish.enable = true;
 
@@ -120,6 +101,29 @@
         darwinConfigurations."Duys-MacBook-Air" = nix-darwin.lib.darwinSystem {
             modules = [
                 configuration
+                home-manager.darwinModules.home-manager
+                {
+                    # `home-manager` config
+                    home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.duynguyen = import ./home-manager/default.nix;
+                    };
+                    users.users.duynguyen.home = "/Users/duynguyen";
+                    nix.settings.trusted-users = [ "duynguyen" ];
+                }
+                nix-homebrew.darwinModules.nix-homebrew
+                {
+                    nix-homebrew = {
+                        enable = true;
+                        # Apple Silicon only
+                        enableRosetta = true;
+                        # User owning the Homebrew prefix
+                        user = "duynguyen";
+                        # In case Homebrew was already installed
+                        autoMigrate = true;
+                    };
+                }
             ];
         };
 
