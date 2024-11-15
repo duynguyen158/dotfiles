@@ -2,6 +2,7 @@
 
 {
     home.file = {
-        ".config/zed".source = ./../../.config/zed;
+        ".config/zed/keymap.json".source = ./../../.config/zed/keymap.json;
+        ".config/zed/settings.json".source = ./../../.config/zed/settings.json;
     };
 }
