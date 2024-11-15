@@ -36,6 +36,7 @@
                     pkgs.nixd
                     pkgs.openssh
                     pkgs.pure-prompt
+                    pkgs.stow
                     pkgs.vim
                 ];
 

@@ -2,7 +2,6 @@
 
 {
     imports = [
-        ./zed.nix
         ./zsh.nix
     ];
 
