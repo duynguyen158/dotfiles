@@ -53,6 +53,7 @@
                 # GUI apps go here
                 casks = [
                     "1password"
+                    "actual"
                     "brave-browser"
                     "obsidian"
                     "zed"
