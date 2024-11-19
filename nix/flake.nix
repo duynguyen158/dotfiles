@@ -55,6 +55,7 @@
                     "1password"
                     "actual"
                     "brave-browser"
+                    "mullvadvpn"
                     "obsidian"
                     "zed"
                 ];
