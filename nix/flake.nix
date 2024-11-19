@@ -55,8 +55,10 @@
                     "1password"
                     "actual"
                     "brave-browser"
+                    "messenger"
                     "mullvadvpn"
                     "obsidian"
+                    "slack"
                     "zed"
                 ];
                 # Mac App Store apps go here
