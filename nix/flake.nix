@@ -55,6 +55,7 @@
                     "1password"
                     "actual"
                     "brave-browser"
+                    "google-drive"
                     "messenger"
                     "mullvadvpn"
                     "obsidian"
@@ -87,13 +88,27 @@
 
             # Enable alternative shell support in nix-darwin.
             # programs.fish.enable = true;
-
-            # Set Git commit hash for darwin-version.
-            system.configurationRevision = self.rev or self.dirtyRev or null;
-
-            # Used for backwards compatibility, please read the changelog before changing.
-            # $ darwin-rebuild changelog
-            system.stateVersion = 5;
+            
+            # System settings
+            system = {
+              # Set Git commit hash for darwin-version.
+              configurationRevision = self.rev or self.dirtyRev or null;
+              
+              defaults = {
+                finder = {
+                  # Show hidden files (including dotfiles) by default
+                  AppleShowAllFiles = true;
+                  # Show columns view by default
+                  FXPreferredViewStyle = "clmv";
+                  # Default new Finder windows to open in the home directory
+                  NewWindowTarget = "Home";
+                };
+              };
+              
+              # Used for backwards compatibility, please read the changelog before changing.
+              # $ darwin-rebuild changelog
+              stateVersion = 5;
+            };
 
             # The platform the configuration will be used on.
             nixpkgs.hostPlatform = "aarch64-darwin";
