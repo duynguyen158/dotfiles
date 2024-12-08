@@ -55,6 +55,7 @@
                     "1password"
                     "actual"
                     "brave-browser"
+                    "google-chrome"
                     "google-drive"
                     "messenger"
                     "mullvadvpn"
