@@ -22,6 +22,11 @@
     "light": "Catppuccin Latte",
     "dark": "Night Owl Dark"
   },
+  "languages": {
+    "Nix": {
+      "tab_size": 4
+    }
+  },
   "autosave": {
     "after_delay": {
       "milliseconds": 500
