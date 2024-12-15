@@ -32,6 +32,7 @@
             environment.systemPackages =
                 [
                     pkgs.git
+                    pkgs.curl
                     pkgs.home-manager
                     pkgs.nixd
                     pkgs.openssh
@@ -55,6 +56,7 @@
                     "1password"
                     "actual"
                     "brave-browser"
+                    "docker"
                     "google-chrome"
                     "google-drive"
                     "messenger"
