@@ -35,6 +35,7 @@
                     pkgs.curl
                     pkgs.home-manager
                     pkgs.nixd
+                    pkgs.ollama
                     pkgs.openssh
                     pkgs.pure-prompt
                     pkgs.stow
