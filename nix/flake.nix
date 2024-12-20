@@ -64,6 +64,7 @@
                     "mullvadvpn"
                     "obsidian"
                     "slack"
+                    "zalo"
                     "zed"
                 ];
                 # Mac App Store apps go here
