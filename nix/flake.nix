@@ -8,13 +8,15 @@
             url = "github:LnL7/nix-darwin";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        # Zed uses nil as Nix language server
+        nil.url = "github:oxalica/nil";
         home-manager = {
            url = "github:nix-community/home-manager";
            inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, home-manager, ... }:
+    outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nil, home-manager, ... }:
     let
         configuration = { pkgs, ... }: {
             # Enable installing packages with an unfree license
@@ -39,6 +41,7 @@
                     pkgs.pure-prompt
                     pkgs.stow
                     pkgs.vim
+                    nil.packages.${pkgs.system}.nil
                 ];
 
             # List packages to be instaled by Homebrew.
