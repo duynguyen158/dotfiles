@@ -67,6 +67,7 @@
                     "obsidian"
                     "ollama"
                     "slack"
+                    "viber"
                     "zalo"
                     "zed"
                 ];
