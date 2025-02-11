@@ -76,10 +76,10 @@
                 # Make sure you're logged in to the App Store and have purchased each app
                 # Use the `mas search` command to search for the app ID
                 masApps = {};
-                # Make sure only packages specified in this configuartion are installed
                 onActivation = {
                     autoUpdate = true;
-                    cleanup = "uninstall";
+                    # Make sure only packages specified in this configuartion are installed
+                    cleanup = "zap";
                     upgrade = true;
                 };
             };
