@@ -68,6 +68,7 @@
                     "ollama"
                     "slack"
                     "viber"
+                    "whatsapp"
                     "zalo"
                     "zed"
                 ];
@@ -76,7 +77,11 @@
                 # Use the `mas search` command to search for the app ID
                 masApps = {};
                 # Make sure only packages specified in this configuartion are installed
-                onActivation.cleanup = "zap";
+                onActivation = {
+                    autoUpdate = true;
+                    cleanup = "uninstall";
+                    upgrade = true;
+                };
             };
 
             programs = {
