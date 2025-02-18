@@ -10,9 +10,12 @@ sudo nixos-rebuild switch --flake .#spectre
 ### Create Linux `.config` symlinks
 TKTK
 
-### Create Windows/Microsoft config symlinks
-On Windows, open Terminal as administrator, then run:
+### Create WSL configs
+Symlinks doesn't work so need to resort to copying
 ```bash
-cd ~/.dotfiles/spectre
-stow -d Microsoft -t /mnt/c/ProgramData/Microsoft .
+# Copy .wslconfig
+cp wsl/.wslconfig.example /mnt/c/Users/<USER>/.wslconfig
+# Copy .wslgconfig (if needed)
+mkdir -p /mnt/c/ProgramData/Microsoft/WSL/
+cp wsl/.wslgconfig.example /mnt/c/ProgramData/Microsoft/WSL/.wslgconfig
 ```
