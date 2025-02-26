@@ -34,9 +34,11 @@
 				# Need to install as system package to work with system auth
 				pkgs._1password-cli
 				pkgs._1password-gui
+				pkgs.curl
 				pkgs.git
 				pkgs.home-manager
 				pkgs.stow
+				pkgs.vim
 			];
 
 			# Package configurations not available in home-manager

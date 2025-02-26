@@ -1,5 +1,7 @@
 # spectre
 
+Try installing GUI apps on Windows and install only CLI tools this way. GUI experience and performance is just abysmal on WSL.
+
 ## Sync packages and home-manager configs
 ```bash
 cd ~/.dotfiles/spectre/nix
