@@ -6,6 +6,15 @@ properties:
   resources:
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Google.GoogleDrive
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Google.GoogleDrive"
+      source: winget
+    id: Google.GoogleDrive
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Brave.Brave
       allowPrerelease: true
       securityContext: current
