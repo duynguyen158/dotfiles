@@ -23,8 +23,6 @@
             nixpkgs.config.allowUnfree = true;
 
             nix = {
-		# enable = false allows Determinate to take over
-		# enable = false;
                 settings = {
                     experimental-features = [ "nix-command" "flakes" ];
                 };
@@ -96,7 +94,7 @@
 
             security = {
                 # Allow sudo auth via fingerprint
-		pam.services.sudo_local.touchIdAuth = true;
+                pam.services.sudo_local.touchIdAuth = true;
             };
 
             # Enable alternative shell support in nix-darwin.
