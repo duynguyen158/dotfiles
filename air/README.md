@@ -4,7 +4,7 @@
 1. Run
 ```zsh
 cd nix
-darwin-rebuild switch --flake .#Duys-MacBook-Air
+darwin-rebuild switch --flake .#air
 ```
 to sync Nix packages and configs.
 

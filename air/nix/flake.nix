@@ -23,6 +23,8 @@
             nixpkgs.config.allowUnfree = true;
 
             nix = {
+		# enable = false allows Determinate to take over
+		# enable = false;
                 settings = {
                     experimental-features = [ "nix-command" "flakes" ];
                 };
@@ -90,14 +92,9 @@
                 };
             };
 
-            services = {
-                # Auto upgrade nix package and the daemon service.
-                nix-daemon.enable = true;
-            };
-
             security = {
                 # Allow sudo auth via fingerprint
-                pam.enableSudoTouchIdAuth = true;
+		pam.services.sudo_local.touchIdAuth = true;
             };
 
             # Enable alternative shell support in nix-darwin.
@@ -131,7 +128,7 @@
     {
         # Build darwin flake using:
         # $ darwin-rebuild build --flake .#simple
-        darwinConfigurations."Duys-MacBook-Air" = nix-darwin.lib.darwinSystem {
+        darwinConfigurations.air = nix-darwin.lib.darwinSystem {
             modules = [
                 configuration
                 home-manager.darwinModules.home-manager
