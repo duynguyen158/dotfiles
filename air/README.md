@@ -11,6 +11,6 @@ to sync Nix packages and configs.
 2. Run
 ```zsh
 cd .. # Go back to top level directory
-stow .
+stow -d .config -t ~/.config .
 ```
 to sync .config dotfiles.
