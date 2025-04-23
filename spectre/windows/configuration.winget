@@ -24,15 +24,6 @@ properties:
     id: Google.GoogleDrive
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Microsoft.VisualStudioCode
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "Microsoft.VisualStudioCode"
-      source: winget
-    id: Microsoft.VisualStudioCode
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
       description: Installing MullvadVPN.MullvadVPN
       allowPrerelease: true
       securityContext: current
