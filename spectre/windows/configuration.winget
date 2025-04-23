@@ -6,6 +6,15 @@ properties:
   resources:
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Brave.Brave
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Brave.Brave"
+      source: winget
+    id: Brave.Brave
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Google.GoogleDrive
       allowPrerelease: true
       securityContext: current
@@ -15,11 +24,20 @@ properties:
     id: Google.GoogleDrive
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Brave.Brave
+      description: Installing Microsoft.VisualStudioCode
       allowPrerelease: true
       securityContext: current
     settings:
-      id: "Brave.Brave"
+      id: "Microsoft.VisualStudioCode"
       source: winget
-    id: Brave.Brave
+    id: Microsoft.VisualStudioCode
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing MullvadVPN.MullvadVPN
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "MullvadVPN.MullvadVPN"
+      source: winget
+    id: MullvadVPN.MullvadVPN
   configurationVersion: 0.2.0
