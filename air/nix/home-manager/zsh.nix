@@ -8,7 +8,7 @@
         syntaxHighlighting.enable = true;
         
 
-        initExtra = ''
+        initContent = ''
             # zsh pure theme
             autoload -U promptinit; promptinit
             prompt pure
