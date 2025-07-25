@@ -59,14 +59,12 @@
                     "1password"
                     "actual"
                     "brave-browser"
-                    "docker"
+                    "docker-desktop"
                     "google-chrome"
                     "google-drive"
-                    "libreoffice"
                     "messenger"
                     "mullvad-vpn"
                     "obsidian"
-                    "ollama"
                     "slack"
                     "viber"
                     "whatsapp"
@@ -100,12 +98,12 @@
 
             # Enable alternative shell support in nix-darwin.
             # programs.fish.enable = true;
-            
+
             # System settings
             system = {
               # Set Git commit hash for darwin-version.
               configurationRevision = self.rev or self.dirtyRev or null;
-              
+
               defaults = {
                 finder = {
                   # Show hidden files (including dotfiles) by default
@@ -116,7 +114,7 @@
                   NewWindowTarget = "Home";
                 };
               };
-              
+
               # Used for backwards compatibility, please read the changelog before changing.
               # $ darwin-rebuild changelog
               stateVersion = 5;
