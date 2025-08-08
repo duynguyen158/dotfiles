@@ -157,6 +157,6 @@
         };
 
         # Expose the package set, including overlays, for convenience.
-        darwinPackages = self.darwinConfigurations."Duys-MacBook-Air".pkgs;
+        darwinPackages = self.darwinConfigurations.air.pkgs;
     };
 }
