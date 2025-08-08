@@ -1,0 +1,51 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "vim_mode": true,
+  "assistant": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
+    },
+    "version": "2"
+  },
+  "ui_font_size": 15,
+  "buffer_font_size": 12,
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Night Owl Dark"
+  },
+  "languages": {
+    "Nix": {
+      "tab_size": 4
+    },
+    "JavaScript": {
+      "tab_size": 2
+    },
+    "TypeScript": {
+      "tab_size": 2
+    },
+    "Svelte": {
+      "tab_size": 2
+    },
+    "HTML": {
+      "tab_size": 2
+    },
+    "CSS": {
+      "tab_size": 2
+    }
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 500
+    }
+  }
+}
