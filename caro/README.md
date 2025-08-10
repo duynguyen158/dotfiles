@@ -4,6 +4,12 @@
 
 Refer to [this page](https://dreamsofcode.io/blog/nix-darwin-my-favorite-package-manager-for-macos). Do not use Determinate since it doesn't play well with `nix-darwin`.
 
+## Update flake inputs (e.g., to enable new versions of packages)
+
+```zsh
+nix flake update
+```
+
 ## Update system after changes
 
 1. Run
