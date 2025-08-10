@@ -22,6 +22,9 @@
       zle -N down-line-or-beginning-search
       bindkey "^[[A" up-line-or-beginning-search    # Up arrow
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
+
+      # Add secrets
+      for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
     '';
 
     shellAliases = {
