@@ -1,162 +1,175 @@
 {
-    description = "Duy Nguyen's Nix System Configuration";
+  description = "Duy Nguyen's Nix System Configuration";
 
-    inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-        nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-        nix-darwin = {
-            url = "github:LnL7/nix-darwin";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        # Zed uses nil as Nix language server
-        nil.url = "github:oxalica/nil";
-        home-manager = {
-           url = "github:nix-community/home-manager";
-           inputs.nixpkgs.follows = "nixpkgs";
-        };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Zed uses nil as Nix language server
+    nil.url = "github:oxalica/nil";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-    outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nil, home-manager, ... }:
+  outputs =
+    inputs@{
+      self,
+      nix-darwin,
+      nix-homebrew,
+      nixpkgs,
+      nil,
+      home-manager,
+      ...
+    }:
     let
-        configuration = { pkgs, ... }: {
-            # Enable installing packages with an unfree license
-            nixpkgs.config.allowUnfree = true;
+      configuration =
+        { pkgs, ... }:
+        {
+          # Enable installing packages with an unfree license
+          nixpkgs.config.allowUnfree = true;
 
-            nix = {
-                settings = {
-                    experimental-features = [ "nix-command" "flakes" ];
-                };
+          nix = {
+            settings = {
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
             };
+          };
 
-            # List Nix packages installed in system profile. To search by name, run:
-            # $ nix-env -qaP | grep wget
-            # Can include both CLI tools and GUI applications
-            environment.systemPackages =
-                [
-                    pkgs.git
-                    pkgs.curl
-                    pkgs.home-manager
-                    pkgs.nixd
-                    pkgs.openssh
-                    pkgs.pure-prompt
-                    pkgs.stow
-                    pkgs.vim
-                    nil.packages.${pkgs.system}.nil
-                ];
+          # List Nix packages installed in system profile. To search by name, run:
+          # $ nix-env -qaP | grep wget
+          # Can include both CLI tools and GUI applications
+          environment.systemPackages = [
+            pkgs.git
+            pkgs.curl
+            pkgs.home-manager
+            pkgs.nixd
+            pkgs.openssh
+            pkgs.pure-prompt
+            pkgs.stow
+            pkgs.vim
+            nil.packages.${pkgs.system}.nil
+          ];
 
-            # List packages to be instaled by Homebrew.
-            homebrew = {
-                enable = true;
-                # CLI tools go here
-                brews = [
-                    # CLI to search for apps and their ID on the App Store
-                    "mas"
-                    # Shell history search
-                    "mcfly"
-                ];
-                # GUI apps go here
-                casks = [
-                    "1password"
-                    "actual"
-                    "brave-browser"
-                    "docker-desktop"
-                    "google-chrome"
-                    "google-drive"
-                    "messenger"
-                    "mullvad-vpn"
-                    "obsidian"
-                    "slack"
-                    "viber"
-                    "whatsapp"
-                    "zalo"
-                    "zed"
-                ];
-                # Mac App Store apps go here
-                # Make sure you're logged in to the App Store and have purchased each app
-                # Use the `mas search` command to search for the app ID
-                masApps = {
-                    "F5Access" = 1243219105;    # VPN for work
-                };
-                onActivation = {
-                    autoUpdate = true;
-                    # Make sure only packages specified in this configuartion are installed
-                    cleanup = "zap";
-                    upgrade = true;
-                };
+          # List packages to be instaled by Homebrew.
+          homebrew = {
+            enable = true;
+            # CLI tools go here
+            brews = [
+              # CLI to search for apps and their ID on the App Store
+              "mas"
+              # Shell history search
+              "mcfly"
+            ];
+            # GUI apps go here
+            casks = [
+              "1password"
+              "actual"
+              "brave-browser"
+              "docker-desktop"
+              "google-chrome"
+              "google-drive"
+              "messenger"
+              "mullvad-vpn"
+              "obsidian"
+              "slack"
+              "viber"
+              "whatsapp"
+              "zalo"
+              "zed"
+            ];
+            # Mac App Store apps go here
+            # Make sure you're logged in to the App Store and have purchased each app
+            # Use the `mas search` command to search for the app ID
+            masApps = {
+              "F5Access" = 1243219105; # VPN for work
             };
-
-            programs = {
-                zsh = {
-                    enable = true;
-                };
+            onActivation = {
+              autoUpdate = true;
+              # Make sure only packages specified in this configuartion are installed
+              cleanup = "zap";
+              upgrade = true;
             };
+          };
 
-            security = {
-                # Allow sudo auth via fingerprint
-                pam.services.sudo_local.touchIdAuth = true;
+          programs = {
+            zsh = {
+              enable = true;
             };
+          };
 
-            # Enable alternative shell support in nix-darwin.
-            # programs.fish.enable = true;
+          security = {
+            # Allow sudo auth via fingerprint
+            pam.services.sudo_local.touchIdAuth = true;
+          };
 
-            # System settings
-            system = {
-              # Set Git commit hash for darwin-version.
-              configurationRevision = self.rev or self.dirtyRev or null;
+          # Enable alternative shell support in nix-darwin.
+          # programs.fish.enable = true;
 
-              defaults = {
-                finder = {
-                  # Show hidden files (including dotfiles) by default
-                  AppleShowAllFiles = true;
-                  # Show columns view by default
-                  FXPreferredViewStyle = "clmv";
-                  # Default new Finder windows to open in the home directory
-                  NewWindowTarget = "Home";
-                };
+          # System settings
+          system = {
+            # Set Git commit hash for darwin-version.
+            configurationRevision = self.rev or self.dirtyRev or null;
+
+            defaults = {
+              finder = {
+                # Show hidden files (including dotfiles) by default
+                AppleShowAllFiles = true;
+                # Show columns view by default
+                FXPreferredViewStyle = "clmv";
+                # Default new Finder windows to open in the home directory
+                NewWindowTarget = "Home";
               };
-
-              # Used for backwards compatibility, please read the changelog before changing.
-              # $ darwin-rebuild changelog
-              stateVersion = 5;
             };
 
-            # The platform the configuration will be used on.
-            nixpkgs.hostPlatform = "aarch64-darwin";
+            # Used for backwards compatibility, please read the changelog before changing.
+            # $ darwin-rebuild changelog
+            stateVersion = 5;
+          };
+
+          # The platform the configuration will be used on.
+          nixpkgs.hostPlatform = "aarch64-darwin";
         };
     in
     {
-        # Build darwin flake using:
-        # $ darwin-rebuild build --flake .#simple
-        darwinConfigurations.air = nix-darwin.lib.darwinSystem {
-            modules = [
-                configuration
-                home-manager.darwinModules.home-manager
-                {
-                    # `home-manager` config
-                    home-manager = {
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-                        users.duynguyen = import ./home-manager/default.nix;
-                    };
-                    users.users.duynguyen.home = "/Users/duynguyen";
-                    nix.settings.trusted-users = [ "duynguyen" ];
-                }
-                nix-homebrew.darwinModules.nix-homebrew
-                {
-                    nix-homebrew = {
-                        enable = true;
-                        # Apple Silicon only
-                        enableRosetta = true;
-                        # User owning the Homebrew prefix
-                        user = "duynguyen";
-                        # In case Homebrew was already installed
-                        autoMigrate = true;
-                    };
-                }
-            ];
-        };
+      # Build darwin flake using:
+      # $ darwin-rebuild build --flake .#simple
+      darwinConfigurations.air = nix-darwin.lib.darwinSystem {
+        modules = [
+          configuration
+          home-manager.darwinModules.home-manager
+          {
+            # `home-manager` config
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.duynguyen = import ./home-manager/default.nix;
+            };
+            users.users.duynguyen.home = "/Users/duynguyen";
+            nix.settings.trusted-users = [ "duynguyen" ];
+          }
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              # Apple Silicon only
+              enableRosetta = true;
+              # User owning the Homebrew prefix
+              user = "duynguyen";
+              # In case Homebrew was already installed
+              autoMigrate = true;
+            };
+          }
+        ];
+      };
 
-        # Expose the package set, including overlays, for convenience.
-        darwinPackages = self.darwinConfigurations.air.pkgs;
+      # Expose the package set, including overlays, for convenience.
+      darwinPackages = self.darwinConfigurations.air.pkgs;
     };
 }
