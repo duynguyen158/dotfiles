@@ -8,13 +8,12 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "vim_mode": true,
-  "assistant": {
+  "agent": {
     "default_profile": "ask",
     "default_model": {
-      "provider": "copilot_chat",
+      "provider": "openai",
       "model": "gpt-4.1"
     },
-    "version": "2"
   },
   "ui_font_size": 15,
   "buffer_font_size": 12,
@@ -25,7 +24,7 @@
   },
   "languages": {
     "Nix": {
-      "tab_size": 4
+      "tab_size": 2
     },
     "JavaScript": {
       "tab_size": 2
