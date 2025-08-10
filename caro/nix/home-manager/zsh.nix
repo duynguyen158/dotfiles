@@ -22,10 +22,11 @@
       zle -N down-line-or-beginning-search
       bindkey "^[[A" up-line-or-beginning-search    # Up arrow
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
-
-      # Alias for dotfiles
-      alias dotfiles="zed -n ~/.dotfiles"
     '';
+
+    shellAliases = {
+      dotfiles = "zed -n ~/.dotfiles";
+    };
 
     oh-my-zsh = {
       enable = true;
