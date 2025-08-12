@@ -77,6 +77,7 @@
               "messenger"
               "obsidian"
               "slack"
+              "tuple"
               "viber"
               "whatsapp"
               "zalo"
