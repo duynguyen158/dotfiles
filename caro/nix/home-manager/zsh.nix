@@ -29,6 +29,7 @@
 
     shellAliases = {
       dotfiles = "zed -n ~/.dotfiles";
+      cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
     };
 
     oh-my-zsh = {

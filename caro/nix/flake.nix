@@ -46,8 +46,9 @@
           # $ nix-env -qaP | grep wget
           # Can include both CLI tools and GUI applications
           environment.systemPackages = [
-            pkgs.git
+            pkgs.cookiecutter
             pkgs.curl
+            pkgs.git
             pkgs.home-manager
             pkgs.nixd
             pkgs.openssh
