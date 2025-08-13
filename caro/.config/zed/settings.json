@@ -11,12 +11,12 @@
   "agent": {
     "inline_assistant_model": {
       "provider": "openai",
-      "model": "gpt-5"
+      "model": "gpt-4.1"
     },
-    "default_profile": "ask",
+    "default_profile": "write",
     "default_model": {
       "provider": "openai",
-      "model": "o4-mini"
+      "model": "gpt-5"
     }
   },
   "ui_font_size": 15,
@@ -43,6 +43,9 @@
       "tab_size": 2
     },
     "CSS": {
+      "tab_size": 2
+    },
+    "GraphQL": {
       "tab_size": 2
     }
   },
