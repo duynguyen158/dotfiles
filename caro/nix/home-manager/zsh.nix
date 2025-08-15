@@ -28,6 +28,7 @@
     '';
 
     shellAliases = {
+      direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
       dotfiles = "zed -n ~/.dotfiles";
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
     };
