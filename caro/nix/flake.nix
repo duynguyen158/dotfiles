@@ -77,6 +77,7 @@
               "google-drive"
               "messenger"
               "obsidian"
+              "ollama"
               "slack"
               "tuple"
               "viber"
