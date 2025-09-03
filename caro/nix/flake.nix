@@ -48,6 +48,7 @@
           environment.systemPackages = [
             pkgs.cookiecutter
             pkgs.curl
+            pkgs.ffmpeg
             pkgs.git
             pkgs.home-manager
             pkgs.nixd
