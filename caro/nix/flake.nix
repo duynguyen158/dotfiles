@@ -76,6 +76,7 @@
               "google-chrome"
               "google-drive"
               "messenger"
+              "microsoft-word"
               "obsidian"
               "ollama"
               "slack"
