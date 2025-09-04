@@ -82,6 +82,7 @@
               "microsoft-word"
               "obsidian"
               "ollama-app"
+              "postman"
               "slack"
               "tuple"
               "viber"
