@@ -51,6 +51,7 @@
             pkgs.ffmpeg
             pkgs.git
             pkgs.home-manager
+            pkgs.llm
             pkgs.nixd
             pkgs.openssh
             pkgs.pure-prompt
