@@ -51,7 +51,6 @@
             pkgs.ffmpeg
             pkgs.git
             pkgs.home-manager
-            pkgs.llm
             pkgs.nixd
             pkgs.openssh
             pkgs.pure-prompt
@@ -65,6 +64,8 @@
             enable = true;
             # CLI tools go here
             brews = [
+              # Call LLMs
+              "llm"
               # CLI to search for apps and their ID on the App Store
               "mas"
               # Shell history search
