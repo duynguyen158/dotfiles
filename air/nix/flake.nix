@@ -70,7 +70,6 @@
             # GUI apps go here
             casks = [
               "1password"
-              "actual"
               "brave-browser"
               "docker-desktop"
               "google-chrome"
