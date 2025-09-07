@@ -24,6 +24,12 @@
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
     '';
 
+    shellAliases = {
+      direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
+      dotfiles = "zed -n ~/.dotfiles";
+      cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
+    };
+
     oh-my-zsh = {
       enable = true;
       plugins = [
