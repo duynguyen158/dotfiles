@@ -70,6 +70,8 @@
               "mas"
               # Shell history search
               "mcfly"
+              # YouTube downloader
+              "yt-dlp"
             ];
             # GUI apps go here
             casks = [
