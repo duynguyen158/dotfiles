@@ -28,6 +28,7 @@
       direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
       dotfiles = "zed -n ~/.dotfiles";
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
+      minet = "uvx --python 3.10 minet";
     };
 
     oh-my-zsh = {

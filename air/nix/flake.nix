@@ -66,6 +66,8 @@
               "mas"
               # Shell history search
               "mcfly"
+              # Python package and project manager
+              "uv"
             ];
             # GUI apps go here
             casks = [
