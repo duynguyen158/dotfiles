@@ -70,6 +70,8 @@
               "mas"
               # Shell history search
               "mcfly"
+              # Python package and project manager
+              "uv"
               # YouTube downloader
               "yt-dlp"
             ];
