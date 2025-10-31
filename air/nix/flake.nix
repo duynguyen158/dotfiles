@@ -79,6 +79,7 @@
               "messenger"
               "mullvad-vpn"
               "obsidian"
+              "signal"
               "slack"
               "viber"
               "whatsapp"
