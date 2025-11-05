@@ -82,6 +82,7 @@
               "docker-desktop"
               "google-chrome"
               "google-drive"
+              "macwhisper"
               "microsoft-word"
               "obsidian"
               "ollama-app"
