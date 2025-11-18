@@ -12,9 +12,6 @@
       autoload -U promptinit; promptinit
       prompt pure
 
-      # McFly
-      eval "$(mcfly init zsh)"
-
       # Enable up/down arrow history search
       autoload -U up-line-or-beginning-search
       autoload -U down-line-or-beginning-search

@@ -68,8 +68,6 @@
               "llm"
               # CLI to search for apps and their ID on the App Store
               "mas"
-              # Shell history search
-              "mcfly"
               # Python package and project manager
               "uv"
               # YouTube downloader
