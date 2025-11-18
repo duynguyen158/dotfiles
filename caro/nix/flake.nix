@@ -68,6 +68,10 @@
               "llm"
               # CLI to search for apps and their ID on the App Store
               "mas"
+              # Node version manager
+              "nvm"
+              # PostgreSQL
+              "postgresql"
               # Python package and project manager
               "uv"
               # YouTube downloader
@@ -84,6 +88,7 @@
               "microsoft-word"
               "obsidian"
               "ollama-app"
+              "postgres-unofficial"
               "postman"
               "signal"
               "slack"

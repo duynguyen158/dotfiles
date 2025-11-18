@@ -22,6 +22,10 @@
 
       # Add secrets
       for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
+
+      # Create .nvm if not exists and initialize
+      mkdir -p "$HOME/.nvm"
+      source $(brew --prefix nvm)/nvm.sh
     '';
 
     shellAliases = {
