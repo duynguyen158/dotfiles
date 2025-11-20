@@ -64,6 +64,8 @@
             enable = true;
             # CLI tools go here
             brews = [
+              # GCP Cloud SQL
+              "cloud-sql-proxy"
               # Call LLMs
               "llm"
               # CLI to search for apps and their ID on the App Store
@@ -81,7 +83,9 @@
             casks = [
               "1password"
               "brave-browser"
+              "dbeaver-community"
               "docker-desktop"
+              "gcloud-cli"
               "google-chrome"
               "google-drive"
               "macwhisper"

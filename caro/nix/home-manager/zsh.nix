@@ -26,6 +26,9 @@
       # Create .nvm if not exists and initialize
       mkdir -p "$HOME/.nvm"
       source $(brew --prefix nvm)/nvm.sh
+
+      # Add gcloud-cli to PATH
+      export PATH=$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:"$PATH"
     '';
 
     shellAliases = {
