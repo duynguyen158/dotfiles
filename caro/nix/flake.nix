@@ -62,21 +62,18 @@
           # List packages to be instaled by Homebrew.
           homebrew = {
             enable = true;
+            # Taps go here
+            taps = [ ];
             # CLI tools go here
             brews = [
-              # GCP Cloud SQL
               "cloud-sql-proxy"
-              # Call LLMs
+              "gh"
               "llm"
               # CLI to search for apps and their ID on the App Store
               "mas"
-              # Node version manager
               "nvm"
-              # PostgreSQL
               "postgresql"
-              # Python package and project manager
               "uv"
-              # YouTube downloader
               "yt-dlp"
             ];
             # GUI apps go here
