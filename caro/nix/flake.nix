@@ -80,6 +80,7 @@
             casks = [
               "1password"
               "brave-browser"
+              "cursor"
               "dbeaver-community"
               "docker-desktop"
               "gcloud-cli"
