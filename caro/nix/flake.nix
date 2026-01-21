@@ -83,6 +83,7 @@
               "cursor"
               "dbeaver-community"
               "docker-desktop"
+              "figma"
               "gcloud-cli"
               "google-chrome"
               "google-drive"
