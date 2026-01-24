@@ -81,6 +81,7 @@
             casks = [
               "1password"
               "brave-browser"
+              "claude-code"
               "cursor"
               "dbeaver-community"
               "docker-desktop"
