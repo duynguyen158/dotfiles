@@ -71,6 +71,7 @@
               "llm"
               # CLI to search for apps and their ID on the App Store
               "mas"
+              "mcp-toolbox"
               "nvm"
               "postgresql"
               "uv"
