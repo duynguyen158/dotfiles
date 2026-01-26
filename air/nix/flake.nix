@@ -54,7 +54,7 @@
             pkgs.pure-prompt
             pkgs.stow
             pkgs.vim
-            nil.packages.${pkgs.system}.nil
+            nil.packages.${pkgs.stdenv.hostPlatform.system}.nil
           ];
 
           # List packages to be instaled by Homebrew.
@@ -118,6 +118,9 @@
           system = {
             # Set Git commit hash for darwin-version.
             configurationRevision = self.rev or self.dirtyRev or null;
+
+            # Primary user for system-wide activation
+            primaryUser = "duynguyen";
 
             defaults = {
               finder = {
