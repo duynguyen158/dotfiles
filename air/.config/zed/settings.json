@@ -7,13 +7,20 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "project_panel": {
+    "dock": "left"
+  },
   "vim_mode": true,
-  "assistant": {
-    "default_model": {
+  "agent": {
+    "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "claude-3-5-sonnet"
+      "model": "gpt-4.1"
     },
-    "version": "2"
+    "default_profile": "write",
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-5"
+    },
   },
   "ui_font_size": 15,
   "buffer_font_size": 12,
@@ -24,7 +31,7 @@
   },
   "languages": {
     "Nix": {
-      "tab_size": 4
+      "tab_size": 2
     },
     "JavaScript": {
       "tab_size": 2
