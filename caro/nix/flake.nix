@@ -80,6 +80,7 @@
             # GUI apps go here
             casks = [
               "1password"
+              "block-goose"
               "brave-browser"
               "claude-code"
               "cursor"
