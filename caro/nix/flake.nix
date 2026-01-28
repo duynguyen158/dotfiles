@@ -56,7 +56,7 @@
             pkgs.pure-prompt
             pkgs.stow
             pkgs.vim
-            nil.packages.${pkgs.system}.nil
+            nil.packages.${pkgs.stdenv.hostPlatform.system}.nil
           ];
 
           # List packages to be instaled by Homebrew.
