@@ -30,6 +30,9 @@
       # Add gcloud-cli to PATH
       export PATH=$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:"$PATH"
 
+      # Add cargo bin to PATH
+      export PATH="$HOME/.cargo/bin:$PATH"
+
       # Add GitHub CLI auth token (ensure logged in first)
       if ! gh auth status >/dev/null 2>&1; then
         echo "GitHub CLI not authenticated. Please log in:"

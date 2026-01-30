@@ -54,6 +54,7 @@
             pkgs.nixd
             pkgs.openssh
             pkgs.pure-prompt
+            pkgs.rustup # should followed by `rustup toolchain install stable` to install the compiler and cargo
             pkgs.stow
             pkgs.vim
             nil.packages.${pkgs.stdenv.hostPlatform.system}.nil
