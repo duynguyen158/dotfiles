@@ -74,6 +74,7 @@
               "1password"
               "actual"
               "brave-browser"
+              "claude"
               "claude-code"
               "docker-desktop"
               "google-chrome"
