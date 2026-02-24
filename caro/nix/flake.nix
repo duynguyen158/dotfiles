@@ -64,9 +64,12 @@
           homebrew = {
             enable = true;
             # Taps go here
-            taps = [ ];
+            taps = [
+              "oven-sh/bun"
+            ];
             # CLI tools go here
             brews = [
+              "bun"
               "cloud-sql-proxy"
               "gh"
               "llm"
@@ -83,6 +86,7 @@
               "1password"
               "block-goose"
               "brave-browser"
+              "claude"
               "claude-code"
               "cursor"
               "dbeaver-community"
