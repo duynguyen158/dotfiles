@@ -76,6 +76,7 @@
               # CLI to search for apps and their ID on the App Store
               "mas"
               "mcp-toolbox"
+              "mise"
               "nvm"
               "postgresql"
               "uv"
