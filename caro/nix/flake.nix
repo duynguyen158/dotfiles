@@ -100,7 +100,7 @@
               "microsoft-word"
               "obsidian"
               "ollama-app"
-              "postgres-unofficial"
+              "postgres-app"
               "postman"
               "signal"
               "slack"
