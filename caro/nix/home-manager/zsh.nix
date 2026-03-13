@@ -33,6 +33,9 @@
       # Add cargo bin to PATH
       export PATH="$HOME/.cargo/bin:$PATH"
 
+      # Add PostgreSQL Homebrew bin to PATH
+      export PATH="$(brew --prefix postgresql@18)/bin:$PATH"
+
       # Add mise shims to PATH
       export PATH="$HOME/.local/share/mise/shims:$PATH"
 

@@ -78,7 +78,7 @@
               "mcp-toolbox"
               "mise"
               "nvm"
-              "postgresql"
+              "postgresql@18"
               "uv"
               "yt-dlp"
             ];
