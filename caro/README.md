@@ -10,7 +10,16 @@ Create new `.zshrc`-like files in the `$HOME/.secrets` directory. Then refer to 
 
 ## Update flake inputs (e.g., to enable new versions of packages)
 
+If the `nixup` alias is available, run:
+
 ```zsh
+nixup
+```
+
+If the `nixup` alias is not available yet, run:
+
+```zsh
+cd nix
 nix flake update
 ```
 
@@ -19,11 +28,18 @@ nix flake update
 1. Run
 
 ```zsh
-cd nix
-darwin-rebuild switch --flake .#caro
+nixup
 ```
 
-to sync Nix packages and configs.
+to update flake inputs and sync Nix packages and configs.
+
+If the `nixup` alias is not available yet, run:
+
+```zsh
+cd nix
+nix flake update
+darwin-rebuild switch --flake .#caro
+```
 
 2. Run
 

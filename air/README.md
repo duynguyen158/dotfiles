@@ -9,11 +9,18 @@ This configuration uses Nix with nix-darwin and home-manager to manage macOS sys
 1. Run
 
 ```zsh
-cd nix
-darwin-rebuild switch --flake .#air
+nixup
 ```
 
-to sync Nix packages and configs.
+to update flake inputs and sync Nix packages and configs.
+
+If the `nixup` alias is not available yet, run:
+
+```zsh
+cd nix
+nix flake update
+darwin-rebuild switch --flake .#air
+```
 
 2. Run
 
@@ -30,15 +37,16 @@ to sync .config dotfiles.
 
 If you encounter errors like `unknown or unsupported macOS version` when running `darwin-rebuild`, you may need to update nixpkgs to get a newer Homebrew version:
 
-1. Update flake inputs to get the latest packages:
+1. If available, run:
+
+```zsh
+nixup
+```
+
+2. If the `nixup` alias is not available yet, update flake inputs and rebuild manually:
 
 ```zsh
 cd nix
 nix flake update
-```
-
-2. Rebuild the system:
-
-```zsh
 darwin-rebuild switch --flake .#air
 ```
