@@ -45,6 +45,9 @@
         gh auth login
       fi
       export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)
+
+      # Activate mise
+      eval "$(mise activate zsh)"
     '';
 
     shellAliases = {
