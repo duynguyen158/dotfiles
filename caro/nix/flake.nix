@@ -65,6 +65,7 @@
             enable = true;
             # Taps go here
             taps = [
+              "hashicorp/tap"
               "oven-sh/bun"
             ];
             # CLI tools go here
@@ -80,6 +81,7 @@
               "nvm"
               "postgresql@18"
               "uv"
+              "hashicorp/tap/vault"
               "yt-dlp"
             ];
             # GUI apps go here
