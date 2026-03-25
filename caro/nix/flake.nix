@@ -90,7 +90,6 @@
               "block-goose"
               "brave-browser"
               "claude"
-              "claude-code"
               "cursor"
               "dbeaver-community"
               "docker-desktop"
