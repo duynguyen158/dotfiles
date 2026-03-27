@@ -105,6 +105,7 @@
               "postman"
               "signal"
               "slack"
+              "tailscale-app"
               "tuple"
               "viber"
               "vlc"
