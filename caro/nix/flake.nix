@@ -80,6 +80,7 @@
               "mise"
               "nvm"
               "postgresql@18"
+              "tmux"
               "uv"
               "hashicorp/tap/vault"
               "yt-dlp"
