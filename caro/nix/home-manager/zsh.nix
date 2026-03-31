@@ -41,6 +41,9 @@
 
       # Add local user bin to PATH
       export PATH="$HOME/.local/bin:$PATH"
+      
+      # Add LM Studio to PATH
+      export PATH="$HOME/.lmstudio/bin:$PATH"
 
       # Add GitHub CLI auth token (ensure logged in first)
       if ! gh auth status >/dev/null 2>&1; then

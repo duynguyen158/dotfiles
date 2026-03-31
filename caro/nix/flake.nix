@@ -98,6 +98,7 @@
               "gcloud-cli"
               "google-chrome"
               "google-drive"
+              "lm-studio"
               "macwhisper"
               "microsoft-word"
               "obsidian"
