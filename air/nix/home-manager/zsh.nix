@@ -22,6 +22,10 @@
       zle -N down-line-or-beginning-search
       bindkey "^[[A" up-line-or-beginning-search    # Up arrow
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
+      
+      # Create .nvm if not exists and initialize
+      mkdir -p "$HOME/.nvm"
+      source $(brew --prefix nvm)/nvm.sh
     '';
 
     shellAliases = {

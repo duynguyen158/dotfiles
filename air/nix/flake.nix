@@ -63,7 +63,7 @@
             # CLI tools go here
             brews = [
               "ffmpeg"
-              "node@24"
+              "nvm"
               # CLI to search for apps and their ID on the App Store
               "mas"
               # Shell history search
