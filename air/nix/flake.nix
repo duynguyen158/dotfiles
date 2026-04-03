@@ -63,6 +63,7 @@
             # CLI tools go here
             brews = [
               "ffmpeg"
+              "node@24"
               # CLI to search for apps and their ID on the App Store
               "mas"
               # Shell history search
@@ -92,9 +93,7 @@
             # Mac App Store apps go here
             # Make sure you're logged in to the App Store and have purchased each app
             # Use the `mas search` command to search for the app ID
-            masApps = {
-              "F5Access" = 1243219105; # VPN for work
-            };
+            masApps = {};
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuartion are installed

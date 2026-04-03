@@ -3,6 +3,7 @@
 {
   programs.git = {
     enable = true;
+    signing.format = "ssh";
 
     settings = {
       gpg = {
@@ -22,6 +23,9 @@
       };
       init = {
         defaultBranch = "main";
+      };
+      url."git@github.com:" = {
+        insteadOf = "https://github.com/";
       };
     };
   };
