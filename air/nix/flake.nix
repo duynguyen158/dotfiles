@@ -81,6 +81,7 @@
               "docker-desktop"
               "google-chrome"
               "google-drive"
+              "lm-studio"
               "mullvad-vpn"
               "obsidian"
               "signal"
