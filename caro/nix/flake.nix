@@ -118,9 +118,7 @@
             # Mac App Store apps go here
             # Make sure you're logged in to the App Store and have purchased each app
             # Use the `mas search` command to search for the app ID
-            masApps = {
-              "Glean" = 6448766375;
-            };
+            masApps = { };
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuartion are installed
