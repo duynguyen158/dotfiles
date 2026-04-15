@@ -86,6 +86,7 @@
               "obsidian"
               "signal"
               "slack"
+              "stats"
               "viber"
               "whatsapp"
               "zalo"
