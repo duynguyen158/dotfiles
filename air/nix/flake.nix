@@ -62,6 +62,7 @@
             enable = true;
             # CLI tools go here
             brews = [
+              "cookiecutter"
               "ffmpeg"
               "nvm"
               # CLI to search for apps and their ID on the App Store
