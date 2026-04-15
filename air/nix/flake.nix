@@ -75,6 +75,7 @@
             casks = [
               "1password"
               "actual"
+              "block-goose"
               "brave-browser"
               "claude"
               "claude-code"
