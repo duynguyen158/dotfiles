@@ -63,6 +63,7 @@
             # CLI tools go here
             brews = [
               "cookiecutter"
+              "duckdb"
               "ffmpeg"
               "nvm"
               # CLI to search for apps and their ID on the App Store
