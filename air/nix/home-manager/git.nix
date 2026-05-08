@@ -28,5 +28,7 @@
         insteadOf = "https://github.com/";
       };
     };
+
+    lfs.enable = true;
   };
 }
