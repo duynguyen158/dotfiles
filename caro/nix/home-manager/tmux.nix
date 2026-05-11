@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.tmux = {
@@ -15,14 +15,11 @@
       # UTF-8 support
       setw -q -g utf8 on
 
-      # Apply Catppuccin theme (Latte in light mode, Mocha in dark mode)
-      run-shell "~/.local/bin/tmux-catppuccin"
+      # Apply Night Owl theme (light/dark follows macOS appearance)
+      run-shell "~/.local/bin/tmux-night-owl"
 
-      # Re-apply theme when a client attaches (e.g. after toggling macOS appearance)
-      set-hook -g client-attached "run-shell '~/.local/bin/tmux-catppuccin'"
-
-      # <prefix>+R: manually refresh theme mid-session after toggling appearance
-      bind R run-shell "~/.local/bin/tmux-catppuccin" \; display-message "Theme refreshed"
+      # Re-apply on client attach (covers tmux attach after appearance change)
+      set-hook -g client-attached "run-shell '~/.local/bin/tmux-night-owl'"
 
       set -g status-left-length 50
       set -g status-right-length 100
@@ -39,29 +36,53 @@
     '';
   };
 
-  home.file.".local/bin/tmux-catppuccin" = {
+  home.file.".local/bin/tmux-night-owl" = {
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
-        # Catppuccin Mocha (dark)
-        tmux set -g status-style "bg=#1e1e2e,fg=#cdd6f4"
-        tmux set -g window-status-current-style "bg=#89b4fa,fg=#1e1e2e,bold"
-        tmux set -g pane-border-style "fg=#313244"
-        tmux set -g pane-active-border-style "fg=#89b4fa"
-        tmux set -g message-style "bg=#313244,fg=#cdd6f4"
-        tmux set -g status-left "#[bg=#89b4fa,fg=#1e1e2e,bold] #S #[bg=#1e1e2e,fg=#89b4fa]"
-        tmux set -g status-right "#[fg=#f5c2e7]#(whoami) #[fg=#89b4fa]│ #[fg=#cba6f7]%Y-%m-%d %H:%M #[bg=#89b4fa,fg=#1e1e2e,bold] #h "
-      else
-        # Catppuccin Latte (light)
-        tmux set -g status-style "bg=#eff1f5,fg=#4c4f69"
-        tmux set -g window-status-current-style "bg=#1e66f5,fg=#eff1f5,bold"
-        tmux set -g pane-border-style "fg=#ccd0da"
-        tmux set -g pane-active-border-style "fg=#1e66f5"
-        tmux set -g message-style "bg=#ccd0da,fg=#4c4f69"
-        tmux set -g status-left "#[bg=#1e66f5,fg=#eff1f5,bold] #S #[bg=#eff1f5,fg=#1e66f5]"
-        tmux set -g status-right "#[fg=#ea76cb]#(whoami) #[fg=#1e66f5]│ #[fg=#8839ef]%Y-%m-%d %H:%M #[bg=#1e66f5,fg=#eff1f5,bold] #h "
+      apply() {
+        local sock="$1"
+        if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
+          # Night Owl (dark)
+          tmux -S "$sock" set -g status-style "bg=#011627,fg=#d6deeb"
+          tmux -S "$sock" set -g window-status-current-style "bg=#82aaff,fg=#011627,bold"
+          tmux -S "$sock" set -g pane-border-style "fg=#5f7e97"
+          tmux -S "$sock" set -g pane-active-border-style "fg=#82aaff"
+          tmux -S "$sock" set -g message-style "bg=#5f7e97,fg=#d6deeb"
+          tmux -S "$sock" set -g status-left "#[bg=#82aaff,fg=#011627,bold] #S #[bg=#011627,fg=#82aaff]"
+          tmux -S "$sock" set -g status-right "#[fg=#c792ea]#(whoami) #[fg=#82aaff]│ #[fg=#21c7a8]%Y-%m-%d %H:%M #[bg=#82aaff,fg=#011627,bold] #h "
+        else
+          # Night Owlish Light
+          tmux -S "$sock" set -g status-style "bg=#ffffff,fg=#403f53"
+          tmux -S "$sock" set -g window-status-current-style "bg=#4876d6,fg=#ffffff,bold"
+          tmux -S "$sock" set -g pane-border-style "fg=#d9d9d9"
+          tmux -S "$sock" set -g pane-active-border-style "fg=#4876d6"
+          tmux -S "$sock" set -g message-style "bg=#f2f2f2,fg=#403f53"
+          tmux -S "$sock" set -g status-left "#[bg=#4876d6,fg=#ffffff,bold] #S #[bg=#ffffff,fg=#4876d6]"
+          tmux -S "$sock" set -g status-right "#[fg=#697098]#(whoami) #[fg=#4876d6]│ #[fg=#08916a]%Y-%m-%d %H:%M #[bg=#4876d6,fg=#ffffff,bold] #h "
+        fi
+      }
+
+      sock_dir="/tmp/tmux-$(id -u)"
+      if [ -d "$sock_dir" ]; then
+        for sock in "$sock_dir"/*; do
+          [ -S "$sock" ] && apply "$sock"
+        done
       fi
     '';
+  };
+
+  # Persistent daemon: re-runs tmux-night-owl whenever macOS appearance changes
+  launchd.agents.dark-notify-tmux = {
+    enable = true;
+    config = {
+      ProgramArguments = [
+        "/opt/homebrew/bin/dark-notify"
+        "-c"
+        "${config.home.homeDirectory}/.local/bin/tmux-night-owl"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
   };
 }
