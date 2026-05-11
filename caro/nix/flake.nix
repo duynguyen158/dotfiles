@@ -72,6 +72,7 @@
             enable = true;
             # Taps go here
             taps = [
+              "cormacrelf/tap"
               "hashicorp/tap"
               "oven-sh/bun"
             ];
@@ -79,6 +80,7 @@
             brews = [
               "bun"
               "cloud-sql-proxy"
+              "cormacrelf/tap/dark-notify"
               "gh"
               "llm"
               # CLI to search for apps and their ID on the App Store
@@ -86,6 +88,8 @@
               "mcp-toolbox"
               "mise"
               "nvm"
+              # Enables Touch ID for sudo inside tmux
+              "pam-reattach"
               "postgresql@18"
               "uv"
               "hashicorp/tap/vault"
@@ -141,8 +145,11 @@
           };
 
           security = {
-            # Allow sudo auth via fingerprint
-            pam.services.sudo_local.touchIdAuth = true;
+            # Allow sudo auth via fingerprint; reattach makes it work inside tmux
+            pam.services.sudo_local = {
+              touchIdAuth = true;
+              reattach = true;
+            };
           };
 
           # Enable alternative shell support in nix-darwin.
