@@ -5,13 +5,19 @@
   imports = [
     ./direnv.nix
     ./git.nix
+    ./tmux.nix
     ./zsh.nix
   ];
 
   home = {
     stateVersion = "24.05";
 
-    sessionVariables = { };
+    sessionVariables = {
+      TERM = "xterm-256color";
+      COLORTERM = "truecolor";
+      LANG = "en_US.UTF-8";
+      LC_ALL = "en_US.UTF-8";
+    };
   };
 
   programs = { };
