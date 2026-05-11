@@ -4,6 +4,7 @@
   # Some configs need to be managed using .config, in which case use stow
   imports = [
     ./direnv.nix
+    ./ghostty.nix
     ./git.nix
     ./tmux.nix
     ./zsh.nix

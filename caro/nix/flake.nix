@@ -102,6 +102,7 @@
               "docker-desktop"
               "figma"
               "gcloud-cli"
+              "ghostty"
               "google-chrome"
               "google-drive"
               "lm-studio"
