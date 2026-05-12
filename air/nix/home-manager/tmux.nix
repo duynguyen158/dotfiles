@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.tmux = {
@@ -7,6 +7,16 @@
     prefix = "C-a";
     mouse = true;
     historyLimit = 50000;
+
+    plugins = [
+      pkgs.tmuxPlugins.resurrect
+      {
+        plugin = pkgs.tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+        '';
+      }
+    ];
 
     extraConfig = ''
       # True color support
