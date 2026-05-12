@@ -67,9 +67,13 @@
           # List packages to be instaled by Homebrew.
           homebrew = {
             enable = true;
+            taps = [
+              "cormacrelf/tap"
+            ];
             # CLI tools go here
             brews = [
               "cookiecutter"
+              "cormacrelf/tap/dark-notify"
               "duckdb"
               "ffmpeg"
               "nvm"
@@ -77,6 +81,8 @@
               "mas"
               # Shell history search
               "mcfly"
+              # Enables Touch ID for sudo inside tmux
+              "pam-reattach"
               # Python package and project manager
               "uv"
             ];
@@ -89,6 +95,7 @@
               "claude"
               "claude-code"
               "docker-desktop"
+              "ghostty"
               "google-chrome"
               "google-drive"
               "lm-studio"
@@ -121,8 +128,11 @@
           };
 
           security = {
-            # Allow sudo auth via fingerprint
-            pam.services.sudo_local.touchIdAuth = true;
+            # Allow sudo auth via fingerprint; reattach makes it work inside tmux
+            pam.services.sudo_local = {
+              touchIdAuth = true;
+              reattach = true;
+            };
           };
 
           # Enable alternative shell support in nix-darwin.
