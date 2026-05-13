@@ -7,5 +7,6 @@
     font-size = 12
     window-padding-x = 8
     window-padding-y = 8
+    adjust-cell-height = 4
   '';
 }
