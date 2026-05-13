@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # Some configs need to be managed using .config, in which case use stow
@@ -20,6 +20,12 @@
       LC_ALL = "en_US.UTF-8";
     };
   };
+
+  fonts.fontconfig.enable = true;
+
+  home.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+  ];
 
   programs = { };
 }
