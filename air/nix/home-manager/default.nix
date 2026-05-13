@@ -25,6 +25,7 @@
 
   home.packages = [
     pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.commit-mono
   ];
 
   programs = { };
