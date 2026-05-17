@@ -15,10 +15,13 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Zed uses nil as Nix language server
     nil.url = "github:oxalica/nil";
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -31,6 +34,7 @@
       nixpkgs,
       nil,
       home-manager,
+      nixvim,
       ...
     }:
     let
@@ -179,6 +183,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.duynguyen = import ./home-manager/default.nix;
+              sharedModules = [ nixvim.homeModules.nixvim ];
             };
             users.users.duynguyen.home = "/Users/duynguyen";
             nix.settings.trusted-users = [ "duynguyen" ];
