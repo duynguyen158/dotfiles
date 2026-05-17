@@ -116,7 +116,7 @@
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuartion are installed
-              cleanup = "zap";
+              cleanup = "uninstall";
               upgrade = true;
             };
           };
