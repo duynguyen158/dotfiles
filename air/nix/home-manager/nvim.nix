@@ -57,6 +57,7 @@ in
       { key = "<C-l>"; action = "<C-w>l"; }
 
       # Misc
+      { key = "jk"; action = "<Esc>"; mode = "i"; options.desc = "Exit insert mode"; }
       { key = "<Esc>"; action = "<cmd>noh<cr>"; mode = "n"; options.desc = "Clear search highlight"; }
       { key = "<leader>w"; action = "<cmd>w<cr>"; options.desc = "Save"; }
       { key = "<leader>q"; action = "<cmd>q<cr>"; options.desc = "Quit"; }

@@ -37,6 +37,8 @@
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
       minet = "uvx --prerelease=allow 'minet>=4.1.2'";
       nixup = "cd ~/.dotfiles/air/nix && nix flake update && sudo darwin-rebuild switch --flake .#air";
+      vi = "nvim";
+      vim = "nvim";
     };
 
     oh-my-zsh = {
