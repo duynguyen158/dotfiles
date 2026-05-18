@@ -21,6 +21,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +35,7 @@
       nixpkgs,
       nil,
       home-manager,
+      nixvim,
       ...
     }:
     let
@@ -133,7 +138,7 @@
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuartion are installed
-              cleanup = "zap";
+              cleanup = "uninstall";
               upgrade = true;
             };
           };
@@ -195,6 +200,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.duynguyen = import ./home-manager/default.nix;
+              sharedModules = [ nixvim.homeModules.nixvim ];
             };
             users.users.duynguyen.home = "/Users/duynguyen";
             nix.settings.trusted-users = [ "duynguyen" ];

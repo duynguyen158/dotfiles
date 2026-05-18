@@ -62,6 +62,8 @@
       dotfiles = "zed -n ~/.dotfiles";
       flakeup = "cd ~/.dotfiles/caro/nix && nix flake update";
       nixup = "cd ~/.dotfiles/caro/nix && sudo darwin-rebuild switch --flake .#caro";
+      vi = "nvim";
+      vim = "nvim";
     };
 
     oh-my-zsh = {
