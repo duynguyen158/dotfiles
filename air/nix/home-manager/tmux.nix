@@ -23,6 +23,7 @@
     extraConfig = ''
       # True color support
       set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set -g focus-events on
 
       # UTF-8 support
       setw -q -g utf8 on
