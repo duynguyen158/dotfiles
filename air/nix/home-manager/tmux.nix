@@ -9,6 +9,7 @@
     historyLimit = 50000;
 
     plugins = [
+      pkgs.tmuxPlugins.yank
       pkgs.tmuxPlugins.resurrect
       {
         plugin = pkgs.tmuxPlugins.continuum;
@@ -32,6 +33,11 @@
 
       set -g status-left-length 50
       set -g status-right-length 100
+
+      # Vi-style copy mode
+      setw -g mode-keys vi
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
 
       # Pane splitting (opens in current path)
       bind | split-window -h -c "#{pane_current_path}"
