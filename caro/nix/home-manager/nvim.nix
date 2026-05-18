@@ -1,15 +1,31 @@
 { pkgs, lib, ... }:
 
 let
-  # night-owl.nvim isn't in nixpkgs, so we build it directly from GitHub.
+  # night-owlish-light — local port of Sarah Drasner's VS Code light variant
+  night-owlish-light-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "night-owlish-light.nvim";
+    src = ./night-owlish-light;
+  };
+
+  # night-owl.nvim — dark colorscheme
   night-owl-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "night-owl.nvim";
     src = pkgs.fetchFromGitHub {
       owner = "oxfist";
       repo = "night-owl.nvim";
       rev = "main";
-      # Run `nixup` once — it'll fail with the correct hash. Paste it here.
       hash = "sha256-O74rBgyBjFcAoOaW5yghNu98vrctj3ugdvaWX1BN8f0=";
+    };
+  };
+
+  # auto-dark-mode.nvim — switches colorscheme when macOS appearance changes
+  auto-dark-mode-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "auto-dark-mode.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "f-person";
+      repo = "auto-dark-mode.nvim";
+      rev = "main";
+      hash = "sha256-xTgRyct3L6Gcz/vdYSc+h2IUgi/+Lh1Q4mxJwHISeis=";
     };
   };
 in
@@ -17,8 +33,22 @@ in
   programs.nixvim = {
     enable = true;
 
-    extraPlugins = [ night-owl-nvim ];
-    colorscheme = "night-owl";
+    extraPlugins = [ night-owl-nvim night-owlish-light-nvim auto-dark-mode-nvim ];
+
+    extraConfigLua = ''
+      require('auto-dark-mode').setup({
+        set_dark_mode = function()
+          vim.o.background = 'dark'
+          vim.cmd('colorscheme night-owl')
+        end,
+        set_light_mode = function()
+          vim.o.background = 'light'
+          vim.cmd('colorscheme night-owlish-light')
+        end,
+        update_interval = 3000,
+        fallback = 'dark',
+      })
+    '';
 
     # Editor behaviour options (equivalent to `set ...` in a vimrc).
     opts = {
