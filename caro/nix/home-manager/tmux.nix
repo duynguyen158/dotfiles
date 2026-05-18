@@ -45,6 +45,8 @@
 
       # Pass modified Enter keys (Shift+Enter, Ctrl+Enter) through to terminal apps
       set -g extended-keys on
+      # Set extended keys format for better compatibility with Pi
+      set -g extended-keys-format csi-u
 
       # Vim-style pane navigation
       bind h select-pane -L
