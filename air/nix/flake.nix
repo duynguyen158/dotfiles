@@ -80,6 +80,7 @@
               "cormacrelf/tap/dark-notify"
               "duckdb"
               "ffmpeg"
+              "gh"
               "nvm"
               # CLI to search for apps and their ID on the App Store
               "mas"
