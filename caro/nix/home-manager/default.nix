@@ -7,6 +7,7 @@
     ./ghostty.nix
     ./git.nix
     ./nvim.nix
+    ./pi.nix
     ./tmux.nix
     ./zsh.nix
   ];

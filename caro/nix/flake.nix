@@ -25,6 +25,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -36,6 +40,7 @@
       nil,
       home-manager,
       nixvim,
+      llm-agents,
       ...
     }:
     let
@@ -201,6 +206,7 @@
               useUserPackages = true;
               users.duynguyen = import ./home-manager/default.nix;
               sharedModules = [ nixvim.homeModules.nixvim ];
+              extraSpecialArgs = { inherit llm-agents; };
             };
             users.users.duynguyen.home = "/Users/duynguyen";
             nix.settings.trusted-users = [ "duynguyen" ];
