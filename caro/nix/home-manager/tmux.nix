@@ -23,6 +23,7 @@
     extraConfig = ''
       # True color support
       set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set -g focus-events on
 
       # UTF-8 support
       setw -q -g utf8 on
@@ -98,6 +99,12 @@
         for sock in "$sock_dir"/*; do
           [ -S "$sock" ] && apply "$sock"
         done
+      fi
+
+      # Update pi theme file — pi watches ~/.pi/agent/themes/night-owl.json and hot-reloads on change
+      themes_dir="$HOME/.pi/agent/themes"
+      if [ -d "$themes_dir" ]; then
+        cp "$themes_dir/night-owl-''${mode}.json" "$themes_dir/night-owl.json" 2>/dev/null || true
       fi
     '';
   };
