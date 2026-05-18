@@ -87,6 +87,7 @@
               "mcfly"
               # Enables Touch ID for sudo inside tmux
               "pam-reattach"
+              "pi-coding-agent"
               # Python package and project manager
               "uv"
             ];
@@ -116,7 +117,7 @@
             # Mac App Store apps go here
             # Make sure you're logged in to the App Store and have purchased each app
             # Use the `mas search` command to search for the app ID
-            masApps = {};
+            masApps = { };
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuartion are installed
