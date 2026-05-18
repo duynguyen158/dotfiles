@@ -43,6 +43,9 @@
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
 
+      # Pass modified Enter keys (Shift+Enter, Ctrl+Enter) through to terminal apps
+      set -g extended-keys on
+
       # Vim-style pane navigation
       bind h select-pane -L
       bind j select-pane -D
