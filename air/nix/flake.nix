@@ -24,6 +24,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -35,6 +39,7 @@
       nil,
       home-manager,
       nixvim,
+      llm-agents,
       ...
     }:
     let
@@ -88,7 +93,6 @@
               "mcfly"
               # Enables Touch ID for sudo inside tmux
               "pam-reattach"
-              "pi-coding-agent"
               # Python package and project manager
               "uv"
             ];
@@ -186,6 +190,7 @@
               useUserPackages = true;
               users.duynguyen = import ./home-manager/default.nix;
               sharedModules = [ nixvim.homeModules.nixvim ];
+              extraSpecialArgs = { inherit llm-agents; };
             };
             users.users.duynguyen.home = "/Users/duynguyen";
             nix.settings.trusted-users = [ "duynguyen" ];
