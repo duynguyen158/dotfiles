@@ -60,8 +60,8 @@
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
       direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
       dotfiles = "zed -n ~/.dotfiles";
-      flakeup = "cd ~/.dotfiles/caro/nix && nix flake update";
-      nixup = "cd ~/.dotfiles/caro/nix && sudo darwin-rebuild switch --flake .#caro";
+      flakeup = "(cd ~/.dotfiles/caro/nix && nix flake update)";
+      nixup = "(cd ~/.dotfiles/caro/nix && sudo darwin-rebuild switch --flake .#caro)";
       vi = "nvim";
       vim = "nvim";
       unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock && echo "second-brain lock removed"'';

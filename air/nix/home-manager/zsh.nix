@@ -36,7 +36,7 @@
       dotfiles = "zed -n ~/.dotfiles";
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
       minet = "uvx --prerelease=allow 'minet>=4.1.2'";
-      nixup = "cd ~/.dotfiles/air/nix && nix flake update && sudo darwin-rebuild switch --flake .#air";
+      nixup = "(cd ~/.dotfiles/air/nix && nix flake update && sudo darwin-rebuild switch --flake .#air)";
       vi = "nvim";
       vim = "nvim";
       unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock && echo "second-brain lock removed"'';
