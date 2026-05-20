@@ -3,8 +3,8 @@
 {
   xdg.configFile."ghostty/config".text = ''
     theme = light:Night Owlish Light,dark:Night Owl
-    font-family = SF Mono
-    font-size = 12
+    font-family = CommitMono Nerd Font
+    font-size = 13
     window-padding-x = 8
     window-padding-y = 8
   '';
