@@ -39,7 +39,7 @@
       nixup = "(cd ~/.dotfiles/air/nix && nix flake update && sudo darwin-rebuild switch --flake .#air)";
       vi = "nvim";
       vim = "nvim";
-      unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock && echo "second-brain lock removed"'';
+      unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock 2>/dev/null; git -C "$HOME/Library/CloudStorage/"*"/My Drive/second-brain" restore --staged . && echo "second-brain unlocked"'';
     };
 
     oh-my-zsh = {
