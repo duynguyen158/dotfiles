@@ -76,6 +76,7 @@ in
       # Telescope fuzzy finder
       { key = "<leader>ff"; action = "<cmd>Telescope find_files<cr>"; options.desc = "Find files"; }
       { key = "<leader>fg"; action = "<cmd>Telescope live_grep<cr>"; options.desc = "Live grep"; }
+      { key = "<leader>sr"; action = "<cmd>GrugFar<cr>"; options.desc = "Search and replace"; }
       { key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; options.desc = "Buffers"; }
       { key = "<leader>fd"; action = "<cmd>Telescope diagnostics<cr>"; options.desc = "Diagnostics"; }
       { key = "<leader>gs"; action = "<cmd>Telescope git_status<cr>"; options.desc = "Git status"; }
@@ -105,6 +106,18 @@ in
 
       # telescope — fuzzy finder for files, grep, buffers, git, diagnostics, and more
       telescope.enable = true;
+
+      # grug-far — project-wide find and replace (open with <leader>sr)
+      grug-far = {
+        enable = true;
+        settings = {
+          engine = "ripgrep";
+          engines.ripgrep = {
+            path = "rg";
+            showReplaceDiff = true;
+          };
+        };
+      };
 
       # treesitter — fast syntax highlighting and smarter indentation via language grammars
       treesitter = {
@@ -243,6 +256,7 @@ in
       nixfmt    # nix formatter
       pyright   # Python LSP server
       ruff      # Python formatter + linter
+      ripgrep   # search backend for telescope and grug-far
     ];
   };
 }
