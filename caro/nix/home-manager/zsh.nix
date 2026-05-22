@@ -20,8 +20,20 @@
       bindkey "^[[A" up-line-or-beginning-search    # Up arrow
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
 
-      # Add secrets
+      # Source secrets into shell scope (shell-local, not inherited by child processes).
       for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
+
+      # Wrap pi to inject AI provider keys only into its process, not the whole shell.
+      pi() {
+        (
+          if [[ -f "$HOME/.secrets/ai_providers" ]]; then
+            set -a; source "$HOME/.secrets/ai_providers"; set +a
+          else
+            echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to pi."
+          fi
+          command pi "$@"
+        )
+      }
 
       # Create .nvm if not exists and initialize
       mkdir -p "$HOME/.nvm"
