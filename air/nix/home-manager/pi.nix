@@ -176,7 +176,7 @@
   # so dark-notify can hot-reload by overwriting ~/.pi/agent/themes/night-owl.json.
   home.file.".pi/agent/extensions/night-owl.ts".text = ''
     import { execSync } from "node:child_process";
-    import { copyFileSync, readFileSync, writeFileSync } from "node:fs";
+    import { chmodSync, copyFileSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
     import { homedir } from "node:os";
     import { join } from "node:path";
 
@@ -196,7 +196,9 @@
       const dest = join(themesDir, "night-owl.json");
 
       try {
+        try { unlinkSync(dest); } catch {}
         copyFileSync(src, dest);
+        try { chmodSync(dest, 0o644); } catch {}
       } catch {}
 
       // pi.ui may not be ready at extension startup, so also persist directly to

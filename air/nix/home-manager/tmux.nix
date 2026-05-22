@@ -105,7 +105,7 @@
       themes_dir="$HOME/.pi/agent/themes"
       src_dir="$HOME/.pi/agent/theme-sources"
       if [ -d "$themes_dir" ]; then
-        cp "$src_dir/night-owl-''${mode}.json" "$themes_dir/night-owl.json" 2>/dev/null || true
+        rm -f "$themes_dir/night-owl.json" && cp "$src_dir/night-owl-''${mode}.json" "$themes_dir/night-owl.json" && chmod 644 "$themes_dir/night-owl.json" || true
       fi
     '';
   };
