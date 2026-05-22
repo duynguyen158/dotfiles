@@ -102,6 +102,7 @@
               # Enables Touch ID for sudo inside tmux
               "pam-reattach"
               "postgresql@18"
+              "ripgrep"
               "uv"
               "hashicorp/tap/vault"
               "yt-dlp"
