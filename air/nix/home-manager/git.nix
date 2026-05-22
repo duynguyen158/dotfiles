@@ -21,6 +21,9 @@
         name = "Duy Nguyen";
         email = "57234880+duynguyen158@users.noreply.github.com";
       };
+      core = {
+        editor = "nvim";
+      };
       init = {
         defaultBranch = "main";
       };
