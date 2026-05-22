@@ -42,7 +42,7 @@
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
 
       # Pane splitting (opens in current path)
-      bind | split-window -h -c "#{pane_current_path}"
+      bind \\ split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
 
       # Pass modified Enter keys (Shift+Enter, Ctrl+Enter) through to terminal apps
