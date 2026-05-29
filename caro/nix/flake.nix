@@ -85,7 +85,6 @@
             ];
             # CLI tools go here
             brews = [
-              "awscli"
               "bun"
               "cloud-sql-proxy"
               "cormacrelf/tap/dark-notify"

@@ -3,6 +3,7 @@
 {
   # Some configs need to be managed using .config, in which case use stow
   imports = [
+    ./aws.nix
     ./direnv.nix
     ./ghostty.nix
     ./git.nix
