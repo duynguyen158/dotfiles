@@ -74,7 +74,7 @@
             nil.packages.${pkgs.stdenv.hostPlatform.system}.nil
           ];
 
-          # List packages to be instaled by Homebrew.
+          # List packages to be installed by Homebrew.
           homebrew = {
             enable = true;
             # Taps go here
@@ -140,8 +140,8 @@
             masApps = { };
             onActivation = {
               autoUpdate = true;
-              # Make sure only packages specified in this configuartion are installed
-              cleanup = "uninstall";
+              # Make sure only packages specified in this configuration are installed
+              cleanup = "zap";
               upgrade = true;
             };
           };
