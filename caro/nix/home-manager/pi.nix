@@ -5,6 +5,19 @@
     llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
+  programs.zsh.initContent = ''
+    pi() {
+      (
+        if [[ -f "$HOME/.secrets/ai_providers" ]]; then
+          set -a; source "$HOME/.secrets/ai_providers"; set +a
+        else
+          echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to pi."
+        fi
+        command pi "$@"
+      )
+    }
+  '';
+
   # Source files live outside themes/ to avoid name collision (all three share "name": "night-owl").
   # The extension copies the right one to themes/night-owl.json at startup.
   home.file.".pi/agent/theme-sources/night-owl-dark.json".text = ''

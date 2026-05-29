@@ -245,4 +245,9 @@ in
       ruff      # Python formatter + linter
     ];
   };
+
+  programs.zsh.shellAliases = {
+    vi = "nvim";
+    vim = "nvim";
+  };
 }

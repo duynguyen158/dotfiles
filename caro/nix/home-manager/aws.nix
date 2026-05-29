@@ -10,6 +10,17 @@
   #   export CONF_AWS_REGION="..."
   home.packages = [ pkgs.awscli2 ];
 
+  programs.zsh.initContent = ''
+    aws-login() {
+      if aws sts get-caller-identity --profile "$CONF_AWS_ACCOUNT_NAME" >/dev/null 2>&1; then
+        echo "Already authenticated:"
+      else
+        aws sso login --profile "$CONF_AWS_ACCOUNT_NAME"
+      fi
+      aws sts get-caller-identity --profile "$CONF_AWS_ACCOUNT_NAME"
+    }
+  '';
+
   home.activation.awsConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -f "$HOME/.secrets/aws" ]; then
       . "$HOME/.secrets/aws"

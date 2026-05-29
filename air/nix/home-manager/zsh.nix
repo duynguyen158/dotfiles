@@ -32,13 +32,10 @@
     '';
 
     shellAliases = {
-      direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
       dotfiles = "zed -n ~/.dotfiles";
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
       minet = "uvx --prerelease=allow 'minet>=4.1.2'";
       nixup = "(cd ~/.dotfiles/air/nix && nix flake update && sudo darwin-rebuild switch --flake .#air)";
-      vi = "nvim";
-      vim = "nvim";
       unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock 2>/dev/null; git -C "$HOME/Library/CloudStorage/"*"/My Drive/second-brain" restore --staged . && echo "second-brain unlocked"'';
     };
 

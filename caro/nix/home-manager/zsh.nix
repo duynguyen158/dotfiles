@@ -23,18 +23,6 @@
       # Source secrets into shell scope (shell-local, not inherited by child processes).
       for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
 
-      # Wrap pi to inject AI provider keys only into its process, not the whole shell.
-      pi() {
-        (
-          if [[ -f "$HOME/.secrets/ai_providers" ]]; then
-            set -a; source "$HOME/.secrets/ai_providers"; set +a
-          else
-            echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to pi."
-          fi
-          command pi "$@"
-        )
-      }
-
       # Create .nvm if not exists and initialize
       mkdir -p "$HOME/.nvm"
       source $(brew --prefix nvm)/nvm.sh
@@ -70,12 +58,9 @@
 
     shellAliases = {
       cookiecutter-python = "cookiecutter gh:duynguyen158/cookiecutter-python";
-      direnv-allow = "echo -e 'use nix\ndotenv' > .envrc && touch .env && direnv allow";
       dotfiles = "zed -n ~/.dotfiles";
       flakeup = "(cd ~/.dotfiles/caro/nix && nix flake update)";
       nixup = "(cd ~/.dotfiles/caro/nix && sudo darwin-rebuild switch --flake .#caro)";
-      vi = "nvim";
-      vim = "nvim";
       unlock-vault = ''rm -f "$HOME"/Library/CloudStorage/*/"My Drive"/second-brain/.git/index.lock 2>/dev/null; git -C "$HOME/Library/CloudStorage/"*"/My Drive/second-brain" restore --staged . && echo "second-brain unlocked"'';
     };
 

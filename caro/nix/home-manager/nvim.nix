@@ -259,4 +259,9 @@ in
       ripgrep   # search backend for telescope and grug-far
     ];
   };
+
+  programs.zsh.shellAliases = {
+    vi = "nvim";
+    vim = "nvim";
+  };
 }
