@@ -14,6 +14,7 @@
 
   home = {
     stateVersion = "24.05";
+    enableNixpkgsReleaseCheck = false;
 
     sessionVariables = {
       TERM = "xterm-256color";
