@@ -141,7 +141,8 @@
             onActivation = {
               autoUpdate = true;
               # Make sure only packages specified in this configuration are installed
-              cleanup = "zap";
+              cleanup = "uninstall";
+              extraFlags = [ "--force" ];
               upgrade = true;
             };
           };
