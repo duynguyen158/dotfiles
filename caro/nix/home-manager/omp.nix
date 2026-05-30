@@ -1,15 +1,44 @@
-{ pkgs, llm-agents, ... }:
+{ pkgs, ... }:
 
+let
+  omp = pkgs.stdenv.mkDerivation {
+    pname = "omp";
+    version = "15.6.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v15.6.0/omp-darwin-arm64";
+      sha256 = "1w3dqqpdz84qlfnszf2p38160c3a7j1izmy82xwghazd2k5b528i";
+    };
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/omp
+      chmod +x $out/bin/omp
+    '';
+  };
+in
 {
-  home.packages = [
-    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
-  ];
+  home.packages = [ omp ];
+
+  programs.zsh.initContent = ''
+    omp() {
+      (
+        if [[ -f "$HOME/.secrets/ai_providers" ]]; then
+          set -a; source "$HOME/.secrets/ai_providers"; set +a
+        else
+          echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to omp."
+        fi
+        command omp "$@"
+      )
+    }
+  '';
 
   # Source files live outside themes/ to avoid name collision (all three share "name": "night-owl").
   # The extension copies the right one to themes/night-owl.json at startup.
-  home.file.".pi/agent/theme-sources/night-owl-dark.json".text = ''
+  home.file.".omp/agent/theme-sources/night-owl-dark.json".text = ''
     {
-      "$schema": "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
+      "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/modes/theme/theme-schema.json",
       "name": "night-owl",
       "vars": {
         "bg": "#011627",
@@ -34,7 +63,8 @@
         "toolPendingBg": "#01111d",
         "toolSuccessBg": "#021320",
         "toolErrorBg": "#2a1014",
-        "customMsgBg": "#1a1130"
+        "customMsgBg": "#1a1130",
+        "statusBg": "#03111e"
       },
       "colors": {
         "accent": "teal",
@@ -87,7 +117,22 @@
         "thinkingMedium": "teal",
         "thinkingHigh": "purple",
         "thinkingXhigh": "pink",
-        "bashMode": "green"
+        "bashMode": "green",
+        "pythonMode": "yellow",
+        "statusLineBg": "statusBg",
+        "statusLineSep": "dim",
+        "statusLineModel": "purple",
+        "statusLinePath": "blue",
+        "statusLineGitClean": "green",
+        "statusLineGitDirty": "yellow",
+        "statusLineContext": "teal",
+        "statusLineSpend": "fgDim",
+        "statusLineStaged": "green",
+        "statusLineDirty": "yellow",
+        "statusLineUntracked": "comment",
+        "statusLineOutput": "cyan",
+        "statusLineCost": "pink",
+        "statusLineSubagents": "purple"
       },
       "export": {
         "pageBg": "#011627",
@@ -97,9 +142,9 @@
     }
   '';
 
-  home.file.".pi/agent/theme-sources/night-owl-light.json".text = ''
+  home.file.".omp/agent/theme-sources/night-owl-light.json".text = ''
     {
-      "$schema": "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
+      "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/modes/theme/theme-schema.json",
       "name": "night-owl",
       "vars": {
         "blue": "#4876d6",
@@ -139,6 +184,7 @@
         "toolPendingBg": "toolPendingBg",
         "toolSuccessBg": "toolSuccessBg",
         "toolErrorBg": "toolErrorBg",
+        "statusLineBg": "#e8eaf5",
         "toolTitle": "#403f53",
         "toolOutput": "dimGray",
         "mdHeading": "yellow",
@@ -169,7 +215,21 @@
         "thinkingMedium": "teal",
         "thinkingHigh": "purple",
         "thinkingXhigh": "#7b1fa2",
-        "bashMode": "green"
+        "bashMode": "green",
+        "pythonMode": "yellow",
+        "statusLineSep": "comment",
+        "statusLineModel": "blue",
+        "statusLinePath": "teal",
+        "statusLineGitClean": "green",
+        "statusLineGitDirty": "yellow",
+        "statusLineContext": "purple",
+        "statusLineSpend": "comment",
+        "statusLineStaged": "yellow",
+        "statusLineDirty": "red",
+        "statusLineUntracked": "comment",
+        "statusLineOutput": "teal",
+        "statusLineCost": "comment",
+        "statusLineSubagents": "purple"
       },
       "export": {
         "pageBg": "#f8f8ff",
@@ -180,9 +240,9 @@
   '';
 
   # Startup extension: detects macOS appearance and activates the night-owl theme.
-  # pi.ui.setTheme persists the choice to settings.json, enabling the file watcher
-  # so dark-notify can hot-reload by overwriting ~/.pi/agent/themes/night-owl.json.
-  home.file.".pi/agent/extensions/night-owl.ts".text = ''
+  # omp.ui.setTheme persists the choice to settings.json, enabling the file watcher
+  # so dark-notify can hot-reload by overwriting ~/.omp/agent/themes/night-owl.json.
+  home.file.".omp/agent/extensions/night-owl.ts".text = ''
     import { execSync } from "node:child_process";
     import { chmodSync, copyFileSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
     import { homedir } from "node:os";
@@ -198,8 +258,8 @@
         }
       })();
 
-      const themesDir = join(homedir(), ".pi/agent/themes");
-      const srcDir = join(homedir(), ".pi/agent/theme-sources");
+      const themesDir = join(homedir(), ".omp/agent/themes");
+      const srcDir = join(homedir(), ".omp/agent/theme-sources");
       const src = join(srcDir, isDark ? "night-owl-dark.json" : "night-owl-light.json");
       const dest = join(themesDir, "night-owl.json");
 
@@ -211,8 +271,8 @@
       } catch {}
 
       // pi.ui may not be ready at extension startup, so also persist directly to
-      // settings.json — pi reads this on launch to select the active theme.
-      const settingsPath = join(homedir(), ".pi/agent/settings.json");
+      // settings.json — omp reads this on launch to select the active theme.
+      const settingsPath = join(homedir(), ".omp/agent/settings.json");
       try {
         let settings: Record<string, unknown> = {};
         try { settings = JSON.parse(readFileSync(settingsPath, "utf8")); } catch {}
@@ -224,22 +284,9 @@
     }
   '';
 
-  programs.zsh.initContent = ''
-    pi() {
-      (
-        if [[ -f "$HOME/.secrets/ai_providers" ]]; then
-          set -a; source "$HOME/.secrets/ai_providers"; set +a
-        else
-          echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to pi."
-        fi
-        command pi "$@"
-      )
-    }
-  '';
-
-  # Pi extension that dynamically discovers models from LM Studio at startup.
+  # Omp extension that dynamically discovers models from LM Studio at startup.
   # Avoids hardcoding model IDs — just load a model in LM Studio and it appears in /model.
-  home.file.".pi/agent/extensions/lmstudio.ts".text = ''
+  home.file.".omp/agent/extensions/lmstudio.ts".text = ''
     export default async function (pi: any) {
       try {
         // LM Studio exposes an OpenAI-compatible /v1/models endpoint listing loaded models
@@ -263,7 +310,7 @@
           })),
         });
       } catch {
-        // LM Studio is not running — skip silently so pi still starts
+        // LM Studio is not running — skip silently so omp still starts
       }
     }
   '';
