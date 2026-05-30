@@ -8,6 +8,9 @@
     syntaxHighlighting.enable = true;
 
     initContent = ''
+      # Source secrets into shell scope
+      for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
+
       # zsh pure theme
       autoload -U promptinit; promptinit
       prompt pure
