@@ -101,12 +101,21 @@
         done
       fi
 
-      # Update pi theme file — pi watches ~/.pi/agent/themes/night-owl.json and hot-reloads on change
-      themes_dir="$HOME/.pi/agent/themes"
-      src_dir="$HOME/.pi/agent/theme-sources"
-      if [ -d "$themes_dir" ]; then
-        rm -f "$themes_dir/night-owl.json" && cp "$src_dir/night-owl-''${mode}.json" "$themes_dir/night-owl.json" && chmod 644 "$themes_dir/night-owl.json" || true
-      fi
+      # Update agent theme files — Pi/OMP watch <agent>/themes/night-owl.json and hot-reload on change
+      update_agent_theme() {
+        local agent_dir="$1"
+        local themes_dir="$agent_dir/themes"
+        local src_dir="$agent_dir/theme-sources"
+        local src="$src_dir/night-owl-''${mode}.json"
+        local dest="$themes_dir/night-owl.json"
+
+        [ -f "$src" ] || return 0
+        mkdir -p "$themes_dir"
+        cp "$src" "$dest" && chmod 644 "$dest" || true
+      }
+
+      update_agent_theme "$HOME/.pi/agent"
+      update_agent_theme "$HOME/.omp/agent"
     '';
   };
 
