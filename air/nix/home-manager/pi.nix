@@ -215,6 +215,19 @@
     }
   '';
 
+  programs.zsh.initContent = ''
+    pi() {
+      (
+        if [[ -f "$HOME/.secrets/ai_providers" ]]; then
+          set -a; source "$HOME/.secrets/ai_providers"; set +a
+        else
+          echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to pi."
+        fi
+        command pi "$@"
+      )
+    }
+  '';
+
   # Pi extension that dynamically discovers models from LM Studio at startup.
   # Avoids hardcoding model IDs — just load a model in LM Studio and it appears in /model.
   home.file.".pi/agent/extensions/lmstudio.ts".text = ''
