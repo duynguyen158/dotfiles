@@ -1,62 +1,83 @@
-{ config, pkgs, ... }:
+{ config, pkgs, oh-my-tmux, ... }:
 
+let
+  tmuxPlugin = plugin: path: "${plugin}/share/tmux-plugins/${path}";
+in
 {
-  programs.tmux = {
-    enable = true;
-    terminal = "xterm-256color";
-    prefix = "C-a";
-    mouse = true;
-    historyLimit = 50000;
+  home.packages = [
+    pkgs.tmux
+    pkgs.perl
+    pkgs.gawk
+    pkgs.gnugrep
+    pkgs.gnused
+  ];
 
-    plugins = [
-      pkgs.tmuxPlugins.yank
-      pkgs.tmuxPlugins.resurrect
-      {
-        plugin = pkgs.tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '5'
-        '';
-      }
-    ];
+  # Keep Oh my tmux's upstream config immutable and put all machine-specific
+  # behavior in tmux.conf.local, which is the customization path it expects.
+  xdg.configFile."tmux/tmux.conf".source = "${oh-my-tmux}/.tmux.conf";
 
-    extraConfig = ''
-      # True color support
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
-      set -g focus-events on
+  xdg.configFile."tmux/tmux.conf.local".text = ''
+    # : << 'EOF'
+    # caro-specific tmux customizations for Oh my tmux.
 
-      # UTF-8 support
-      setw -q -g utf8 on
+    # Preserve the existing prefix behavior: C-a only, not C-b plus C-a.
+    set -gu prefix2 #!important
+    unbind -q C-b #!important
+    set -g prefix C-a #!important
+    bind C-a send-prefix #!important
 
-      # Apply Night Owl theme (light/dark follows macOS appearance)
-      run-shell "~/.local/bin/tmux-night-owl"
-      # client-attached covers the case where appearance changed while tmux was detached
-      set-hook -g client-attached "run-shell '~/.local/bin/tmux-night-owl'"
+    # Preserve existing Home Manager tmux defaults.
+    set -g default-terminal "xterm-256color" #!important
+    set -g base-index 0 #!important
+    setw -g pane-base-index 0 #!important
+    set -g mouse on #!important
+    set -g focus-events on #!important
+    set -g history-limit 50000 #!important
+    set-option -ga terminal-overrides ",xterm-256color:Tc" #!important
+    setw -q -g utf8 on #!important
 
-      set -g status-left-length 50
-      set -g status-right-length 100
+    # Pi/OMP use CSI-u modified keys, including Shift+Enter and Ctrl+Enter.
+    set -g extended-keys on #!important
+    set -g extended-keys-format csi-u #!important
 
-      # Vi-style copy mode
-      setw -g mode-keys vi
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+    # Keep Nix-managed tmux plugins instead of using TPM.
+    tmux_conf_update_plugins_on_launch=false
+    tmux_conf_update_plugins_on_reload=false
+    tmux_conf_uninstall_plugins_on_reload=false
+    set -g @continuum-restore 'on'
+    set -g @continuum-save-interval '5'
+    run-shell -b ${tmuxPlugin pkgs.tmuxPlugins.yank "yank/yank.tmux"}
+    run-shell -b ${tmuxPlugin pkgs.tmuxPlugins.resurrect "resurrect/resurrect.tmux"}
+    run-shell -b ${tmuxPlugin pkgs.tmuxPlugins.continuum "continuum/continuum.tmux"}
 
-      # Pane splitting (opens in current path)
-      bind \\ split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
+    # Preserve the Night Owl status/theme switcher. Oh my tmux still supplies
+    # bindings and helpers; the status line remains controlled by tmux-night-owl.
+    tmux_conf_theme=disabled
+    run-shell -b "~/.local/bin/tmux-night-owl"
+    set-hook -g client-attached "run-shell -b '~/.local/bin/tmux-night-owl'" #!important
+    set -g status-left-length 50 #!important
+    set -g status-right-length 100 #!important
 
-      # Pass modified Enter keys (Shift+Enter, Ctrl+Enter) through to terminal apps
-      set -g extended-keys on
-      # Set extended keys format for better compatibility with Pi
-      set -g extended-keys-format csi-u
+    # Vi-style copy mode.
+    setw -g mode-keys vi #!important
+    bind-key -T copy-mode-vi v send-keys -X begin-selection #!important
+    bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle #!important
 
-      # Vim-style pane navigation
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
-    '';
-  };
+    # Pane splitting opens in the current path.
+    bind \\ split-window -h -c "#{pane_current_path}" #!important
+    bind - split-window -v -c "#{pane_current_path}" #!important
+
+    # Preserve existing Vim-style pane navigation.
+    bind h select-pane -L #!important
+    bind j select-pane -D #!important
+    bind k select-pane -U #!important
+    bind l select-pane -R #!important
+
+    # # /!\ do not remove the following line
+    # EOF
+    #
+    # "$@"
+  '';
 
   home.file.".local/bin/tmux-night-owl" = {
     executable = true;
@@ -101,7 +122,7 @@
         done
       fi
 
-      # Update agent theme files — Pi/OMP watch <agent>/themes/night-owl.json and hot-reloads on change
+      # Update agent theme files — Pi/OMP watch <agent>/themes/night-owl.json and hot-reload on change
       update_agent_theme() {
         local agent_dir="$1"
         local themes_dir="$agent_dir/themes"

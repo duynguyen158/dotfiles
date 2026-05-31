@@ -26,6 +26,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    oh-my-tmux = {
+      url = "github:gpakosz/.tmux";
+      flake = false;
+    };
   };
 
   outputs =
@@ -38,6 +42,7 @@
       home-manager,
       nixvim,
       llm-agents,
+      oh-my-tmux,
       ...
     }:
     let
@@ -205,7 +210,7 @@
               useUserPackages = true;
               users.duynguyen = import ./home-manager/default.nix;
               sharedModules = [ nixvim.homeModules.nixvim ];
-              extraSpecialArgs = { inherit llm-agents; };
+              extraSpecialArgs = { inherit llm-agents oh-my-tmux; };
             };
             users.users.duynguyen.home = "/Users/duynguyen";
             nix.settings.trusted-users = [ "duynguyen" ];
