@@ -75,6 +75,12 @@ $HOME/.pi/agent/themes/night-owl.json
 $HOME/.omp/agent/themes/night-owl.json
 ```
 
+## Known limits and failed approaches
+
+- OMP/Pi output already emitted into terminal/tmux history with truecolor background attributes cannot be reliably recolored later by changing the active theme. Treat historical scrollback as immutable unless the runtime itself reprints it.
+- Do not make OMP/Pi message or tool backgrounds transparent as a default workaround for scrollback mismatch; the user found the solid backgrounds more legible.
+- Do not retry the tmux `pane-colours[]`/numeric palette-slot workaround for OMP/Pi scrollback without a fresh source-level reproducer. It was tested and did not fix the user's real session behavior.
+
 ## Contrast and readability checks
 
 Do not rely on screenshots alone. Check representative foreground/background contrast for:
