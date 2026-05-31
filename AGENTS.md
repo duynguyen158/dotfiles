@@ -37,6 +37,11 @@ After `nixup`, re-stow if any `.config/` files changed:
 cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 ```
 
+## Agent skills
+
+- `.agents/skills/ide-theme-change/` — use for IDE, terminal, OMP/Pi, tmux, Neovim, Zed, and agent UI theme work.
+- `.agents/skills/session-retrospective/` — use at session wrap-up to capture durable repo-specific lessons in `AGENTS.md` or existing skills.
+
 ## Where to put things
 
 **home-manager module** — preferred for anything with a `programs.<tool>` module in home-manager. One file per program, imported in `default.nix`. Use `extraConfig` for settings the module doesn't expose natively.
