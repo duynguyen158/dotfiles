@@ -46,6 +46,8 @@ cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 
 **home-manager module** — preferred for anything with a `programs.<tool>` module in home-manager. One file per program, imported in `default.nix`. Use `extraConfig` for settings the module doesn't expose natively.
 
+When changing duplicated macOS Home Manager modules, check both `caro/` and `air/`; mirror machine-independent fixes when requested or clearly applicable.
+
 **stow** — for tools not supported by home-manager (e.g. Zed). Put config under `<machine>/.config/<tool>/`.
 
 **`homebrew.brews` / `homebrew.casks`** — for GUI apps and tools not in nixpkgs.
