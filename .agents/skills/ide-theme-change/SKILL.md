@@ -57,6 +57,7 @@ Key OMP mappings:
 - `syntax*`: map from upstream token colors, not from terminal ANSI unless the target is terminal-specific.
 - `statusLine*`: map from upstream status bar and terminal ANSI colors as appropriate.
 - `dim`, `muted`, `toolOutput`, `mdLinkUrl`: check contrast. These are common sources of unreadable text.
+- For OMP/Pi light themes, Light Owl's official gray/yellow/teal token colors can be too low-contrast on `#f0f0f0`/`#f6f6f6` tool surfaces. Keep upstream Light Owl surfaces and primary hues exact, but use darker same-hue variants for small/status/syntax roles when contrast requires it.
 
 ## Dark/light switching
 

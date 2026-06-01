@@ -48,7 +48,7 @@ cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 
 When changing duplicated macOS Home Manager modules, check both `caro/` and `air/`; mirror machine-independent fixes when requested or clearly applicable.
 
-**stow** — for tools not supported by home-manager (e.g. Zed). Put config under `<machine>/.config/<tool>/`.
+**stow** — for tools not supported by home-manager (e.g. Zed). Put config under `<machine>/.config/<tool>/`. Zed `settings.json` is intentionally machine-local and ignored; keep shared Zed config limited to tracked files like `keymap.json` unless the user asks otherwise.
 
 **`homebrew.brews` / `homebrew.casks`** — for GUI apps and tools not in nixpkgs.
 
