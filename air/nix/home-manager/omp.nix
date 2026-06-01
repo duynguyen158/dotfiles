@@ -6,7 +6,7 @@ let
     version = "15.6.0";
     src = pkgs.fetchurl {
       url = "https://github.com/can1357/oh-my-pi/releases/download/v15.6.0/omp-darwin-arm64";
-      sha256 = "1w3dqqpdz84qlfnszf2p38160c3a7j1izmy82xwghazd2k5b528i";
+      hash = "sha256-UQAvc1ClwPT8+KwkSHov3OVgLclBuaaoD1nIhijhDVU=";
     };
     dontUnpack = true;
     dontConfigure = true;
