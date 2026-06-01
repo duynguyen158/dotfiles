@@ -64,6 +64,8 @@
           # List Nix packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           # Can include both CLI tools and GUI applications
+          environment.variables.HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
+
           environment.systemPackages = [
             pkgs.cookiecutter
             pkgs.curl
