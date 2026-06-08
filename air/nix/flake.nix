@@ -63,8 +63,6 @@
           # List Nix packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           # Can include both CLI tools and GUI applications
-          environment.variables.HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
-
           environment.systemPackages = [
             pkgs.git
             pkgs.curl
@@ -160,6 +158,10 @@
 
             # Primary user for system-wide activation
             primaryUser = "duynguyen";
+
+            activationScripts.brewTrust.text = ''
+              /opt/homebrew/bin/brew trust cormacrelf/tap 2>/dev/null || true
+            '';
 
             defaults = {
               finder = {
