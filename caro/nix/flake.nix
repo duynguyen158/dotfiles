@@ -150,7 +150,11 @@
               # environment variable above. Keep third-party taps usable for
               # Homebrew Bundle until nix-darwin/Homebrew can model tap trust
               # declaratively.
-              extraEnv.HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
+              extraEnv = {
+                HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
+                HOMEBREW_NO_ENV_HINTS = "1";
+                HOMEBREW_NO_ANALYTICS = "1";
+              };
               autoUpdate = true;
               # Make sure only packages specified in this configuration are installed
               cleanup = "uninstall";

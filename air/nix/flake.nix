@@ -126,6 +126,11 @@
             # Use the `mas search` command to search for the app ID
             masApps = { };
             onActivation = {
+              extraEnv = {
+                HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
+                HOMEBREW_NO_ENV_HINTS = "1";
+                HOMEBREW_NO_ANALYTICS = "1";
+              };
               autoUpdate = true;
               # Make sure only packages specified in this configuration are installed
               cleanup = "uninstall";
