@@ -146,6 +146,11 @@
             # Use the `mas search` command to search for the app ID
             masApps = { };
             onActivation = {
+              # Activation runs under sudo, so it does not inherit the system
+              # environment variable above. Keep third-party taps usable for
+              # Homebrew Bundle until nix-darwin/Homebrew can model tap trust
+              # declaratively.
+              extraEnv.HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
               autoUpdate = true;
               # Make sure only packages specified in this configuration are installed
               cleanup = "uninstall";
@@ -210,6 +215,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+              backupFileExtension = "hm-backup";
               users.duynguyen = import ./home-manager/default.nix;
               sharedModules = [ nixvim.homeModules.nixvim ];
               extraSpecialArgs = { inherit llm-agents oh-my-tmux; };

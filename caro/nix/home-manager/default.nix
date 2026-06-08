@@ -17,6 +17,9 @@
   home = {
     stateVersion = "24.05";
     enableNixpkgsReleaseCheck = false;
+    sessionPath = [
+      "/Applications/Obsidian.app/Contents/MacOS"
+    ];
 
     sessionVariables = {
       TERM = "xterm-256color";
