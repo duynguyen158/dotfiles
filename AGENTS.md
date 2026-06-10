@@ -48,6 +48,8 @@ cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 
 When changing duplicated macOS Home Manager modules, check both `caro/` and `air/`; mirror machine-independent fixes when requested or clearly applicable.
 
+Shell helpers for the `second-brain` Obsidian vault live in both macOS zsh modules (`caro/nix/home-manager/zsh.nix` and `air/nix/home-manager/zsh.nix`). The vault is discovered under `~/Library/CloudStorage/*/My Drive/second-brain`; check the vault's Obsidian Git plugin config before changing helper behavior.
+
 **stow** — for tools not supported by home-manager (e.g. Zed). Put config under `<machine>/.config/<tool>/`. Zed `settings.json` is intentionally machine-local and ignored; keep shared Zed config limited to tracked files like `keymap.json` unless the user asks otherwise.
 
 **`homebrew.brews` / `homebrew.casks`** — for GUI apps and tools not in nixpkgs.
