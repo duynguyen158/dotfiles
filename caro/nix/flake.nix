@@ -107,6 +107,7 @@
               "postgresql@18"
               "ripgrep"
               "uv"
+              "tectonic"
               "hashicorp/tap/vault"
               "yt-dlp"
             ];
