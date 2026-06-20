@@ -64,6 +64,7 @@
           # $ nix-env -qaP | grep wget
           # Can include both CLI tools and GUI applications
           environment.systemPackages = [
+            pkgs.ffmpeg
             pkgs.git
             pkgs.curl
             pkgs.home-manager
@@ -86,7 +87,6 @@
               "cookiecutter"
               "cormacrelf/tap/dark-notify"
               "duckdb"
-              "ffmpeg"
               "gh"
               "nvm"
               # CLI to search for apps and their ID on the App Store
