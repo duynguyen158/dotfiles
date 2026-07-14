@@ -102,6 +102,7 @@
               "mcp-toolbox"
               "mise"
               "nvm"
+              "pandoc"
               # Enables Touch ID for sudo inside tmux
               "pam-reattach"
               "postgresql@18"

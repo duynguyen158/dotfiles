@@ -26,9 +26,25 @@
       bindkey "^[[A" up-line-or-beginning-search    # Up arrow
       bindkey "^[[B" down-line-or-beginning-search  # Down arrow
 
-      # Create .nvm if not exists and initialize
+      # Prefer Apple Silicon Homebrew. Rosetta Homebrew may also exist under
+      # /usr/local, but nix-homebrew installs the declared brews in /opt/homebrew.
+      if [[ -x /opt/homebrew/bin/brew ]]; then
+        export HOMEBREW_PREFIX=/opt/homebrew
+        export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+        export HOMEBREW_REPOSITORY=/opt/homebrew
+        path=("$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" $path)
+      elif [[ -x /usr/local/bin/brew ]]; then
+        export HOMEBREW_PREFIX=/usr/local
+        export HOMEBREW_CELLAR=/usr/local/Cellar
+        export HOMEBREW_REPOSITORY=/usr/local/Homebrew
+        path=("$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" $path)
+      fi
+
+      # Create .nvm if not exists and initialize when Homebrew's nvm is installed.
       mkdir -p "$HOME/.nvm"
-      source $(brew --prefix nvm)/nvm.sh
+      nvm_sh="$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+      [[ -r "$nvm_sh" ]] && source "$nvm_sh"
+      unset nvm_sh
 
       # Add LM Studio to PATH
       export PATH="$HOME/.lmstudio/bin:$PATH"

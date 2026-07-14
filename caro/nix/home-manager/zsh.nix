@@ -23,37 +23,55 @@
       # Source secrets into shell scope (shell-local, not inherited by child processes).
       for f in "$HOME/.secrets/"*; [[ -f $f ]] && source "$f"
 
-      # Create .nvm if not exists and initialize
+      # Prefer Apple Silicon Homebrew. Rosetta Homebrew may also exist under
+      # /usr/local, but nix-homebrew installs the declared brews in /opt/homebrew.
+      if [[ -x /opt/homebrew/bin/brew ]]; then
+        export HOMEBREW_PREFIX=/opt/homebrew
+        export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+        export HOMEBREW_REPOSITORY=/opt/homebrew
+        path=("$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" $path)
+      elif [[ -x /usr/local/bin/brew ]]; then
+        export HOMEBREW_PREFIX=/usr/local
+        export HOMEBREW_CELLAR=/usr/local/Cellar
+        export HOMEBREW_REPOSITORY=/usr/local/Homebrew
+        path=("$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" $path)
+      fi
+
+      # Create .nvm if not exists and initialize when Homebrew's nvm is installed.
       mkdir -p "$HOME/.nvm"
-      source $(brew --prefix nvm)/nvm.sh
+      nvm_sh="$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+      [[ -r "$nvm_sh" ]] && source "$nvm_sh"
+      unset nvm_sh
 
       # Add gcloud-cli to PATH
-      export PATH=$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:"$PATH"
+      [[ -n "$HOMEBREW_PREFIX" ]] && path=("$HOMEBREW_PREFIX/share/google-cloud-sdk/bin" $path)
 
       # Add cargo bin to PATH
-      export PATH="$HOME/.cargo/bin:$PATH"
+      path=("$HOME/.cargo/bin" $path)
 
       # Add PostgreSQL Homebrew bin to PATH
-      export PATH="$(brew --prefix postgresql@18)/bin:$PATH"
+      [[ -d "$HOMEBREW_PREFIX/opt/postgresql@18/bin" ]] && path=("$HOMEBREW_PREFIX/opt/postgresql@18/bin" $path)
 
       # Add mise shims to PATH
-      export PATH="$HOME/.local/share/mise/shims:$PATH"
+      path=("$HOME/.local/share/mise/shims" $path)
 
       # Add local user bin to PATH
-      export PATH="$HOME/.local/bin:$PATH"
+      path=("$HOME/.local/bin" $path)
 
       # Add LM Studio to PATH
-      export PATH="$HOME/.lmstudio/bin:$PATH"
+      path=("$HOME/.lmstudio/bin" $path)
 
-      # Add GitHub CLI auth token (ensure logged in first)
-      if ! gh auth status >/dev/null 2>&1; then
-        echo "GitHub CLI not authenticated. Please log in:"
-        gh auth login
+      # Add GitHub CLI auth token for Homebrew if available.
+      if command -v gh >/dev/null 2>&1; then
+        if gh auth status >/dev/null 2>&1; then
+          export HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)"
+        else
+          print -u2 "GitHub CLI not authenticated. Run: gh auth login"
+        fi
       fi
-      export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)
 
-      # Activate mise
-      eval "$(mise activate zsh)"
+      # Activate mise when installed.
+      command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
 
       __second_brain_vault() {
         local caller="$1"
