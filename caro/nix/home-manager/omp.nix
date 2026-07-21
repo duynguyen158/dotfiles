@@ -296,6 +296,11 @@ in
     }
   '';
 
+  # Herdr official OMP integration. This reports authoritative OMP lifecycle
+  # state and native session identity when OMP runs inside a Herdr pane.
+  home.file.".omp/agent/extensions/herdr-omp-agent-state.ts".source =
+    "${pkgs.herdr.src}/src/integration/assets/omp/herdr-agent-state.ts";
+
   # Omp extension that dynamically discovers models from LM Studio at startup.
   # Avoids hardcoding model IDs — just load a model in LM Studio and it appears in /model.
   home.file.".omp/agent/extensions/lmstudio.ts".text = ''

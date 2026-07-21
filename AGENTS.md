@@ -49,6 +49,7 @@ cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 When changing duplicated macOS Home Manager modules, check both `caro/` and `air/`; mirror machine-independent fixes when requested or clearly applicable.
 
 Shell helpers for the `second-brain` Obsidian vault live in both macOS zsh modules (`caro/nix/home-manager/zsh.nix` and `air/nix/home-manager/zsh.nix`). The vault is discovered under `~/Library/CloudStorage/*/My Drive/second-brain`; check the vault's Obsidian Git plugin config before changing helper behavior.
+Herdr on `caro` is Home Manager managed in `caro/nix/home-manager/herdr.nix`. Keep Pi/OMP Herdr integrations declarative by sourcing the official assets from `pkgs.herdr.src` in the existing `pi.nix`/`omp.nix` modules rather than running `herdr integration install`, which mutates runtime config.
 
 **stow** — for tools not supported by home-manager (e.g. Zed). Put config under `<machine>/.config/<tool>/`. Zed `settings.json` is intentionally machine-local and ignored; keep shared Zed config limited to tracked files like `keymap.json` unless the user asks otherwise.
 
