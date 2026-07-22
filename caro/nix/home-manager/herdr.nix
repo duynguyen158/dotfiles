@@ -16,6 +16,19 @@
     # 16-color palette instead of hard-coding one static Herdr palette.
     name = "terminal"
 
+    [theme.custom]
+    # Keep Herdr on the terminal palette, but do not use ANSI gray as a
+    # foreground/background role. In Night Owlish Light, Herdr's terminal theme
+    # maps muted/sidebar roles to ANSI gray/dark-gray, which makes active rows
+    # and labels collapse into low-contrast gray. Reset keeps those roles on
+    # Ghostty's readable default foreground/background in both light and dark.
+    surface0 = "reset"
+    surface1 = "reset"
+    surface_dim = "reset"
+    overlay0 = "reset"
+    overlay1 = "reset"
+    subtext0 = "reset"
+
     [terminal]
     # Match the tmux split/new-window habit: open new shells where the current
     # pane is, and keep macOS login-shell PATH setup intact.
