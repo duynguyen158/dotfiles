@@ -1,5 +1,9 @@
 # dotfiles
 
+## Machine identity
+
+The current macOS account is `duy.nguyen`. If the account name changes during another migration, update the matching `primaryUser`, Home Manager user, nix-darwin user, home path, trusted-user, and nix-homebrew entries together in `nix/flake.nix` before rebuilding.
+
 ## Install Nix
 
 Refer to [this page](https://dreamsofcode.io/blog/nix-darwin-my-favorite-package-manager-for-macos). Do not use Determinate since it doesn't play well with `nix-darwin`.
