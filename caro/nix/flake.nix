@@ -135,7 +135,6 @@
               "postman"
               "signal"
               "slack"
-              "tailscale-app"
               "tuple"
               "viber"
               "vlc"
@@ -187,7 +186,7 @@
             # Set Git commit hash for darwin-version.
             configurationRevision = self.rev or self.dirtyRev or null;
 
-            primaryUser = "duynguyen";
+            primaryUser = "duy.nguyen";
 
             defaults = {
               finder = {
@@ -222,12 +221,12 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               backupFileExtension = "hm-backup";
-              users.duynguyen = import ./home-manager/default.nix;
+              users."duy.nguyen" = import ./home-manager/default.nix;
               sharedModules = [ nixvim.homeModules.nixvim ];
               extraSpecialArgs = { inherit llm-agents oh-my-tmux; };
             };
-            users.users.duynguyen.home = "/Users/duynguyen";
-            nix.settings.trusted-users = [ "duynguyen" ];
+            users.users."duy.nguyen".home = "/Users/duy.nguyen";
+            nix.settings.trusted-users = [ "duy.nguyen" ];
           }
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -236,7 +235,7 @@
               # Apple Silicon only
               enableRosetta = true;
               # User owning the Homebrew prefix
-              user = "duynguyen";
+              user = "duy.nguyen";
               # In case Homebrew was already installed
               autoMigrate = true;
             };
