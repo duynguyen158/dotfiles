@@ -62,3 +62,9 @@ The `caro` macOS account is currently `duy.nguyen` (not the legacy `duynguyen`).
 
 `caro` and `air` pin Homebrew via a `brew-src` flake input to avoid a patched-brew compatibility bug. If adding a new machine, copy this pattern from `air/nix/flake.nix`.
 For third-party taps on Homebrew versions with tap trust checks, remember nix-darwin's Homebrew activation runs under `sudo` and does not inherit `environment.variables`; put activation-only Homebrew env vars under `homebrew.onActivation.extraEnv`.
+
+If `nixup` fails in Homebrew Bundle with `google-chrome` reporting an existing
+App under `/opt/homebrew/Caskroom`, Chrome's self-updater may have advanced
+`/Applications/Google Chrome.app` while the cask receipt stayed old. Close
+Chrome, repair the cask with an administrator-authorized reinstall, and avoid
+`--zap` so the browser profile is preserved.

@@ -148,6 +148,7 @@ in
         cp "$config" "$runtime" || return 0
         if [ "$mode" = "dark" ]; then
           /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#011627"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^    surface_dim = .*/    surface_dim = "#011627"/' "$runtime"
           rm -f "$runtime.bak"
         else
           /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#f0f0f0"/' "$runtime"

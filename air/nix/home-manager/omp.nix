@@ -251,12 +251,12 @@ in
     }
   '';
 
-  # Startup extension: detects macOS appearance and activates the night-owl theme.
-  # omp.ui.setTheme persists the choice to settings.json, enabling the file watcher
-  # so dark-notify can hot-reload by overwriting ~/.omp/agent/themes/night-owl.json.
+  # Startup extension: selects the current Night Owl variant and keeps OMP
+  # watching the same custom theme file for both appearance modes.
+  # dark-notify rewrites that file when macOS appearance changes.
   home.file.".omp/agent/extensions/night-owl.ts".text = ''
     import { execSync } from "node:child_process";
-    import { chmodSync, copyFileSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+    import { chmodSync, copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
     import { homedir } from "node:os";
     import { join } from "node:path";
 
@@ -277,22 +277,22 @@ in
 
       mkdirSync(themesDir, { recursive: true });
       try {
-        try { unlinkSync(dest); } catch {}
+        // Keep the watched file present while replacing its valid contents.
         copyFileSync(src, dest);
         try { chmodSync(dest, 0o644); } catch {}
       } catch {}
 
-      // pi.ui may not be ready at extension startup, so also persist directly to
-      // settings.json — omp reads this on launch to select the active theme.
+      await pi.ui?.setTheme("night-owl");
+
+      // Persist the same custom theme for both automatic appearance modes.
+      // Write after setTheme in case the UI API persists its own setting.
       const settingsPath = join(homedir(), ".omp/agent/settings.json");
       try {
         let settings: Record<string, unknown> = {};
         try { settings = JSON.parse(readFileSync(settingsPath, "utf8")); } catch {}
-        settings.theme = "night-owl";
+        settings.theme = { dark: "night-owl", light: "night-owl" };
         writeFileSync(settingsPath, JSON.stringify(settings, null, 4) + "\n");
       } catch {}
-
-      await pi.ui?.setTheme("night-owl");
     }
   '';
 

@@ -76,6 +76,12 @@ $HOME/.pi/agent/themes/night-owl.json
 $HOME/.omp/agent/themes/night-owl.json
 ```
 
+OMP v17 stores appearance mappings as `settings.theme.dark` and
+`settings.theme.light`. When `dark-notify` swaps one watched
+`night-owl.json` file in place, map both slots to the same custom theme name;
+do not rewrite the legacy flat `settings.theme` string, which can make light
+mode fall back to OMP's built-in theme.
+
 ## Herdr terminal-theme caveat
 
 - Herdr 0.7.5's `terminal` theme derives active-tab text from `panel_bg`, falling back to `surface_dim` when `panel_bg = "reset"`. Resetting all surface roles can therefore make Light Owl tab labels inherit `#403f53` on the `#4876d6` ANSI-blue active-tab background.
