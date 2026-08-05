@@ -122,7 +122,8 @@ in
         done
       fi
 
-      # Update agent theme files — Pi/OMP watch <agent>/themes/night-owl.json and hot-reload on change
+      # Update agent theme files — Pi/OMP watch ~/.{pi,omp}/agent/themes/night-owl.json.
+      # Keep Herdr's writable runtime config in the same appearance-aware loop.
       update_agent_theme() {
         local agent_dir="$1"
         local themes_dir="$agent_dir/themes"
@@ -137,6 +138,25 @@ in
 
       update_agent_theme "$HOME/.pi/agent"
       update_agent_theme "$HOME/.omp/agent"
+
+      update_herdr_config() {
+        local config="$HOME/.config/herdr/config.toml"
+        local runtime="$HOME/.config/herdr/runtime-config.toml"
+        local herdr="/etc/profiles/per-user/$(id -un)/bin/herdr"
+
+        [ -f "$config" ] || return 0
+        cp "$config" "$runtime" || return 0
+        if [ "$mode" = "dark" ]; then
+          /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#011627"/' "$runtime"
+          rm -f "$runtime.bak"
+        else
+          /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#f0f0f0"/' "$runtime"
+          rm -f "$runtime.bak"
+        fi
+        HERDR_CONFIG_PATH="$runtime" "$herdr" server reload-config >/dev/null 2>&1 || true
+      }
+
+      update_herdr_config
     '';
   };
 

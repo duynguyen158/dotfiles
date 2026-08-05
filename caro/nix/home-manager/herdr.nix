@@ -1,7 +1,18 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  herdrRuntimeConfig = "${config.home.homeDirectory}/.config/herdr/runtime-config.toml";
+in
 {
   home.packages = [ pkgs.herdr ];
+
+  # Herdr's live config is a writable copy so dark-notify can switch the
+  # appearance-sensitive panel/active-tab contrast without mutating HM links.
+  home.sessionVariables.HERDR_CONFIG_PATH = herdrRuntimeConfig;
+
+  home.activation.herdrRuntimeConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    install -m 644 "$HOME/.config/herdr/config.toml" "$HOME/.config/herdr/runtime-config.toml"
+  '';
 
   xdg.configFile."herdr/config.toml".text = ''
     # Managed by ~/.dotfiles/caro/nix/home-manager/herdr.nix.
@@ -17,13 +28,13 @@
     name = "terminal"
 
     [theme.custom]
-    # Keep Herdr on the terminal palette, but do not use ANSI gray as a
-    # foreground/background role. In Night Owlish Light, Herdr's terminal theme
-    # maps muted/sidebar roles to ANSI gray/dark-gray, which makes active rows
-    # and labels collapse into low-contrast gray. Reset keeps those roles on
-    # Ghostty's readable default foreground/background in both light and dark.
+    # dark-notify replaces this in the writable runtime config: Light Owl
+    # uses its light panel surface, while Night Owl matches its dark canvas.
+    panel_bg = "reset"
+    # Keep Herdr on the terminal palette for shell content and status colors.
+    # Do not use ANSI gray for surface/sidebar roles: in Night Owlish Light,
+    # those colors collapse active rows and labels into low-contrast gray.
     surface0 = "reset"
-    surface1 = "reset"
     surface_dim = "reset"
     overlay0 = "reset"
     overlay1 = "reset"

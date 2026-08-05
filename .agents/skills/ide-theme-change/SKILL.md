@@ -76,6 +76,14 @@ $HOME/.pi/agent/themes/night-owl.json
 $HOME/.omp/agent/themes/night-owl.json
 ```
 
+## Herdr terminal-theme caveat
+
+- Herdr 0.7.5's `terminal` theme derives active-tab text from `panel_bg`, falling back to `surface_dim` when `panel_bg = "reset"`. Resetting all surface roles can therefore make Light Owl tab labels inherit `#403f53` on the `#4876d6` ANSI-blue active-tab background.
+- `theme.custom.panel_bg` also colors Herdr floating panels and is not appearance-specific; check both light and dark modes before using it as a tab-contrast workaround.
+- When Herdr theme token behavior is unclear, resolve the packaged source with `nix eval --raw .#darwinPackages.herdr.src` and inspect the renderer instead of guessing token names.
+
+- Home Manager links under `~/.config` are store-backed; for appearance-aware Herdr values, copy the declarative config to a writable runtime file, point `HERDR_CONFIG_PATH` at it, and reload the running server.
+
 ## Known limits and failed approaches
 
 - OMP/Pi output already emitted into terminal/tmux history with truecolor background attributes cannot be reliably recolored later by changing the active theme. Treat historical scrollback as immutable unless the runtime itself reprints it.
