@@ -89,6 +89,10 @@ theme. A factory-level optional `pi.ui?.setTheme(...)` silently does nothing.
 
 ## Herdr terminal-theme caveat
 
+- Nix multiline strings strip their common indentation before writing TOML;
+  appearance-switcher `sed` rules must match optional whitespace rather than
+  assuming four leading spaces.
+
 - Herdr 0.7.5's `terminal` theme derives active-tab text from `panel_bg`, falling back to `surface_dim` when `panel_bg = "reset"`. Resetting all surface roles can therefore make Light Owl tab labels inherit `#403f53` on the `#4876d6` ANSI-blue active-tab background.
 - `theme.custom.panel_bg` also colors Herdr floating panels and is not appearance-specific; check both light and dark modes before using it as a tab-contrast workaround.
 - When Herdr theme token behavior is unclear, resolve the packaged source with `nix eval --raw .#darwinPackages.herdr.src` and inspect the renderer instead of guessing token names.

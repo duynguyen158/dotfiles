@@ -147,11 +147,13 @@ in
         [ -f "$config" ] || return 0
         cp "$config" "$runtime" || return 0
         if [ "$mode" = "dark" ]; then
-          /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#011627"/' "$runtime"
-          /usr/bin/sed -i.bak 's/^    surface_dim = .*/    surface_dim = "#011627"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' "$runtime"
           rm -f "$runtime.bak"
         else
-          /usr/bin/sed -i.bak 's/^    panel_bg = .*/    panel_bg = "#f0f0f0"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' "$runtime"
+          /usr/bin/sed -i.bak 's/^[[:space:]]*accent = .*/accent = "#536767"/' "$runtime"
           rm -f "$runtime.bak"
         fi
         HERDR_CONFIG_PATH="$runtime" "$herdr" server reload-config >/dev/null 2>&1 || true

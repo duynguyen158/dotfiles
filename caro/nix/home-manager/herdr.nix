@@ -14,12 +14,14 @@ in
     install -m 644 "$HOME/.config/herdr/config.toml" "$HOME/.config/herdr/runtime-config.toml"
     if /usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null | /usr/bin/grep -q Dark; then
       /usr/bin/sed -i.bak \
-        -e 's/^    panel_bg = .*/    panel_bg = "#011627"/' \
-        -e 's/^    surface_dim = .*/    surface_dim = "#011627"/' \
+        -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' \
+        -e 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' \
+        -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' \
         "$HOME/.config/herdr/runtime-config.toml"
     else
       /usr/bin/sed -i.bak \
-        -e 's/^    panel_bg = .*/    panel_bg = "#f0f0f0"/' \
+        -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
+        -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
         "$HOME/.config/herdr/runtime-config.toml"
     fi
     rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
@@ -39,9 +41,10 @@ in
     name = "terminal"
 
     [theme.custom]
-    # Activation and dark-notify replace this per appearance: Light Owl uses
-    # its light panel surface, while Night Owl matches its dark canvas.
+    # Activation and dark-notify replace panel_bg/accent per appearance:
+    # Light Owl uses its light panel surface; Night Owl matches its dark canvas.
     panel_bg = "reset"
+    accent = "reset"
     # Keep Herdr on the terminal palette for shell content and status colors.
     # Do not use ANSI gray for surface/sidebar roles: in Night Owlish Light,
     # those colors collapse active rows and labels into low-contrast gray.
