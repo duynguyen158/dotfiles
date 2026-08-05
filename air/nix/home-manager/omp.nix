@@ -253,10 +253,10 @@ in
 
   # Startup extension: selects the current Night Owl variant and keeps OMP
   # watching the same custom theme file for both appearance modes.
-  # dark-notify rewrites that file when macOS appearance changes.
+  # The extension also reloads the live UI when dark-notify rewrites it.
   home.file.".omp/agent/extensions/night-owl.ts".text = ''
     import { execSync } from "node:child_process";
-    import { chmodSync, copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+    import { chmodSync, copyFileSync, mkdirSync, readFileSync, watch, writeFileSync } from "node:fs";
     import { homedir } from "node:os";
     import { join } from "node:path";
 
@@ -282,7 +282,33 @@ in
         try { chmodSync(dest, 0o644); } catch {}
       } catch {}
 
-      await pi.ui?.setTheme("night-owl");
+      let reloadTimer: ReturnType<typeof setTimeout> | undefined;
+      let watcher: ReturnType<typeof watch> | undefined;
+      let applyTheme: (() => Promise<void>) | undefined;
+
+      pi.on("session_start", async (_event: any, ctx: any) => {
+        if (!ctx.hasUI) return;
+        applyTheme = () => ctx.ui.setTheme("night-owl").then(() => undefined);
+        await applyTheme();
+        try {
+          watcher = watch(themesDir, (_eventType, filename) => {
+            if (filename && String(filename) !== "night-owl.json") return;
+            if (reloadTimer) clearTimeout(reloadTimer);
+            reloadTimer = setTimeout(() => {
+              reloadTimer = undefined;
+              void applyTheme?.();
+            }, 150);
+          });
+        } catch {}
+      });
+
+      pi.on("session_shutdown", () => {
+        if (reloadTimer) clearTimeout(reloadTimer);
+        watcher?.close();
+        watcher = undefined;
+        applyTheme = undefined;
+      });
+
 
       // Persist the same custom theme for both automatic appearance modes.
       // Write after setTheme in case the UI API persists its own setting.
