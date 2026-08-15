@@ -29,6 +29,19 @@ in
         else
           echo "💡 Create ~/.secrets/ai_providers with your API keys (e.g. OPENAI_API_KEY=sk-...) to have them automatically available to omp."
         fi
+
+        local aws_profile="$AWS_PROFILE"
+        if [[ -n "$CONF_AWS_ACCOUNT_NAME" ]]; then
+          aws_profile="omp-bedrock"
+        fi
+        if [[ -n "$aws_profile" ]] && command -v aws >/dev/null 2>&1; then
+          export AWS_PROFILE="$aws_profile"
+          if ! aws sts get-caller-identity --profile "$aws_profile" >/dev/null 2>&1; then
+            echo "AWS SSO authentication failed; OMP cannot use Bedrock." >&2
+            exit 1
+          fi
+        fi
+
         command omp "$@"
       )
     }

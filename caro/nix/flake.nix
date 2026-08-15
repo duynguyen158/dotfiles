@@ -102,7 +102,6 @@
               "mcp-toolbox"
               "mise"
               "nvm"
-              "pandoc"
               # Enables Touch ID for sudo inside tmux
               "pam-reattach"
               "postgresql@18"
@@ -115,11 +114,9 @@
             # GUI apps go here
             casks = [
               "1password"
-              "block-goose"
               "brave-browser"
               "claude"
               "cursor"
-              "dbeaver-community"
               "docker-desktop"
               "figma"
               "gcloud-cli"
@@ -127,12 +124,8 @@
               "google-chrome"
               "google-drive"
               "lm-studio"
-              "macwhisper"
-              "microsoft-word"
               "obsidian"
-              "ollama-app"
               "postgres-app"
-              "postman"
               "signal"
               "slack"
               "tuple"

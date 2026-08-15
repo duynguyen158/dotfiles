@@ -1,5 +1,26 @@
 { lib, pkgs, ... }:
 
+let
+  awsSsoCredentialProcess = pkgs.writeShellScript "aws-omp-credentials" ''
+    if [ -f "$HOME/.secrets/aws" ]; then
+      . "$HOME/.secrets/aws"
+    fi
+    if [ -z "$CONF_AWS_ACCOUNT_NAME" ]; then
+      echo "CONF_AWS_ACCOUNT_NAME is not configured" >&2
+      exit 1
+    fi
+
+    aws="${pkgs.awscli2}/bin/aws"
+    if credentials="$("$aws" configure export-credentials --profile "$CONF_AWS_ACCOUNT_NAME" 2>/dev/null)"; then
+      printf '%s\n' "$credentials"
+      exit 0
+    fi
+
+    "$aws" sso login --profile "$CONF_AWS_ACCOUNT_NAME" >&2 || exit 1
+    exec "$aws" configure export-credentials --profile "$CONF_AWS_ACCOUNT_NAME"
+  '';
+in
+
 {
   # Generates ~/.aws/config at nixup time from vars in ~/.secrets:
   #   export CONF_AWS_SSO_URL="..."
@@ -37,6 +58,11 @@ sso_account_id = $CONF_AWS_ACCOUNT_ID
 sso_role_name = $CONF_AWS_ROLE_NAME
 region = $CONF_AWS_REGION
 output = json
+[profile omp-bedrock]
+credential_process = ${awsSsoCredentialProcess}
+region = $CONF_AWS_REGION
+output = json
+
 EOF
     fi
   '';
