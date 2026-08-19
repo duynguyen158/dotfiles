@@ -6,6 +6,7 @@
     ./direnv.nix
     ./ghostty.nix
     ./git.nix
+    ./herdr.nix
     ./nvim.nix
     ./omp.nix
     ./pi.nix

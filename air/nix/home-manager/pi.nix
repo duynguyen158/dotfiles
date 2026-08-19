@@ -237,6 +237,11 @@
     }
   '';
 
+  # Herdr official Pi integration. This reports authoritative Pi lifecycle
+  # state and native session identity when Pi runs inside a Herdr pane.
+  home.file.".pi/agent/extensions/herdr-agent-state.ts".source =
+    "${pkgs.herdr.src}/src/integration/assets/pi/herdr-agent-state.ts";
+
   # Pi extension that dynamically discovers models from LM Studio at startup.
   # Avoids hardcoding model IDs — just load a model in LM Studio and it appears in /model.
   home.file.".pi/agent/extensions/lmstudio.ts".text = ''
