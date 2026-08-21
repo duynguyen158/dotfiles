@@ -139,6 +139,24 @@ in
       update_agent_theme "$HOME/.pi/agent"
       update_agent_theme "$HOME/.omp/agent"
 
+      # Helix has no RPC/remote-control surface for already-running sessions,
+      # but Home Manager's own onChange hook for helix config/theme files
+      # proves SIGUSR1 forces a live reload — reuse that here after swapping
+      # the runtime theme file, same as home-manager does after `nixup`.
+      update_helix_theme() {
+        local themes_dir="$HOME/.config/helix/themes"
+        local src_dir="$HOME/.config/helix/theme-sources"
+        local src="$src_dir/night-owl-''${mode}.toml"
+        local dest="$themes_dir/night-owl.toml"
+
+        [ -f "$src" ] || return 0
+        mkdir -p "$themes_dir"
+        cp "$src" "$dest" && chmod 644 "$dest" || true
+        pkill -USR1 -u "$(id -un)" -x '(hx|\.hx-wrapped)' 2>/dev/null || true
+      }
+
+      update_helix_theme
+
       update_herdr_config() {
         local config="$HOME/.config/herdr/config.toml"
         local runtime="$HOME/.config/herdr/runtime-config.toml"

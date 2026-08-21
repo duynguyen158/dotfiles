@@ -1,0 +1,119 @@
+# Night Owl — ported from Sarah Drasner's VS Code theme (dark variant).
+# https://github.com/sdras/night-owl-vscode-theme
+# Kept in sync with the night-owl.nvim colors used in nvim.nix / tmux.nix.
+
+"attribute" = "attribute"
+"type" = "type"
+"type.builtin" = "type"
+"constructor" = "type"
+"constant" = "constant"
+"constant.builtin" = "constant"
+"constant.numeric" = "number"
+"constant.character.escape" = "special"
+"string" = "string"
+"string.special" = "special"
+"comment" = { fg = "comment", modifiers = ["italic"] }
+"variable" = "variable"
+"variable.builtin" = "builtin"
+"variable.parameter" = "param"
+"variable.other.member" = "variable"
+"label" = "operator"
+"punctuation" = "punctuation"
+"punctuation.delimiter" = "delimiter"
+"punctuation.bracket" = "punctuation"
+"keyword" = { fg = "keyword", modifiers = ["italic"] }
+"keyword.control" = { fg = "keyword", modifiers = ["italic"] }
+"keyword.operator" = "operator"
+"keyword.directive" = "keyword"
+"keyword.storage" = { fg = "keyword", modifiers = ["italic"] }
+"operator" = "operator"
+"function" = { fg = "func", modifiers = ["italic"] }
+"function.builtin" = "func"
+"function.macro" = "func"
+"tag" = "tag"
+"namespace" = "namespace"
+"special" = "special"
+"markup.heading" = { fg = "yellow", modifiers = ["bold"] }
+"markup.list" = "operator"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "fg-dim", modifiers = ["underlined"] }
+"markup.link.text" = "func"
+"markup.quote" = { fg = "comment", modifiers = ["italic"] }
+"markup.raw" = "string"
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "gold"
+"diagnostic.error" = { underline = { color = "red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "yellow", style = "curl" } }
+"diagnostic.info" = { underline = { color = "blue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "comment", style = "curl" } }
+"error" = "red"
+"warning" = "yellow"
+"info" = "blue"
+"hint" = "comment"
+
+"ui.background" = { fg = "fg", bg = "bg" }
+"ui.text" = "fg"
+"ui.text.focus" = "fg"
+"ui.cursor.primary" = { fg = "bg", bg = "cursor" }
+"ui.cursor.match" = { fg = "operator", modifiers = ["underlined"] }
+"ui.cursorline.primary" = { bg = "bg-alt" }
+"ui.linenr" = { fg = "line-nr" }
+"ui.linenr.selected" = { fg = "line-nr-sel", bg = "bg-alt", modifiers = ["bold"] }
+"ui.selection.primary" = { bg = "bg-selection" }
+"ui.selection" = { bg = "bg-selection" }
+"ui.statusline" = { fg = "fg-dim", bg = "bg" }
+"ui.statusline.inactive" = { fg = "line-nr", bg = "bg" }
+"ui.statusline.normal" = { fg = "bg", bg = "blue", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "bg", bg = "green", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "bg", bg = "purple", modifiers = ["bold"] }
+"ui.popup" = { fg = "fg", bg = "bg-popup" }
+"ui.window" = { fg = "border" }
+"ui.help" = { fg = "fg", bg = "bg-popup" }
+"ui.menu" = { fg = "fg", bg = "bg-popup" }
+"ui.menu.selected" = { fg = "fg", bg = "bg-menu-sel" }
+"ui.bufferline" = { fg = "line-nr", bg = "bg" }
+"ui.bufferline.active" = { fg = "fg", bg = "bg-alt", modifiers = ["bold"] }
+"ui.virtual.ruler" = { bg = "bg-alt" }
+"ui.virtual.whitespace" = { fg = "bg-selection" }
+"ui.virtual.indent-guide" = { fg = "bg-selection" }
+"ui.virtual.inlay-hint" = { fg = "line-nr" }
+"ui.gutter" = { bg = "bg" }
+"ui.gutter.selected" = { bg = "bg" }
+
+[palette]
+bg           = "#011627"
+bg-alt       = "#0b253a"
+bg-selection = "#1d3b53"
+bg-popup     = "#011627"
+bg-menu-sel  = "#1d3b53"
+fg           = "#d6deeb"
+fg-dim       = "#5f7e97"
+line-nr      = "#4b6479"
+line-nr-sel  = "#c5e4fd"
+border       = "#5f7e97"
+comment      = "#637777"
+string       = "#ecc48d"
+number       = "#f78c6c"
+constant     = "#82aaff"
+keyword      = "#c792ea"
+operator     = "#7fdbca"
+func         = "#82aaff"
+type         = "#ffcb8b"
+tag          = "#7fdbca"
+attribute    = "#c5e478"
+variable     = "#d6deeb"
+param        = "#7fdbca"
+builtin      = "#addb67"
+namespace    = "#b2ccd6"
+punctuation  = "#d6deeb"
+delimiter    = "#5f7e97"
+special      = "#f78c6c"
+cursor       = "#80a4c2"
+green        = "#22da6e"
+red          = "#ef5350"
+yellow       = "#ffeb95"
+gold         = "#e2b93d"
+blue         = "#82aaff"
+purple       = "#c792ea"
