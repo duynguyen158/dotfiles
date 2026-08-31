@@ -44,11 +44,11 @@ For example, this repo previously worked with:
 nixup
 ```
 
-If the `nixup` alias is not available yet, run:
+If either the `nixup` alias or `darwin-rebuild` is not available yet, run nix-darwin through Nix instead. This is the documented nix-darwin bootstrap path; it only requires a working Nix installation:
 
 ```zsh
 cd nix
-sudo darwin-rebuild switch --flake .#caro
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
 ```
 
 This syncs Nix packages and configs without changing locked dependencies.
@@ -60,7 +60,7 @@ If a recent update breaks the build and you have not committed the broken `flake
 ```zsh
 cd nix
 git checkout -- flake.lock
-sudo darwin-rebuild switch --flake .#caro
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
 ```
 
 If you already committed or otherwise want a specific rollback point, restore `flake.lock` from a known-good commit or set it back to the last working revisions before rebuilding.

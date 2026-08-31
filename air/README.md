@@ -14,12 +14,12 @@ nixup
 
 to update flake inputs and sync Nix packages and configs.
 
-If the `nixup` alias is not available yet, run:
+If the `nixup` alias is not available yet, or `darwin-rebuild` is not installed or on your `PATH`, run nix-darwin through Nix instead. This is the documented nix-darwin bootstrap path; it only requires a working Nix installation:
 
 ```zsh
 cd nix
 nix flake update
-darwin-rebuild switch --flake .#air
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#air
 ```
 
 2. Run
@@ -43,10 +43,10 @@ If you encounter errors like `unknown or unsupported macOS version` when running
 nixup
 ```
 
-2. If the `nixup` alias is not available yet, update flake inputs and rebuild manually:
+2. If the `nixup` alias is not available yet, update flake inputs and rebuild manually. If `darwin-rebuild` is unavailable, use the nix-darwin runner:
 
 ```zsh
 cd nix
 nix flake update
-darwin-rebuild switch --flake .#air
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#air
 ```
