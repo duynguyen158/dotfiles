@@ -25,8 +25,7 @@ flakeup
 If that alias is not available yet, run:
 
 ```zsh
-cd nix
-nix flake update
+nix --extra-experimental-features "nix-command flakes" flake update
 ```
 
 If a flake input update breaks the system build, revert `nix/flake.lock` to the last known working revisions and rebuild without updating first.
@@ -48,19 +47,18 @@ If either the `nixup` alias or `darwin-rebuild` is not available yet, run nix-da
 
 ```zsh
 cd nix
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
+sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
 ```
 
 This syncs Nix packages and configs without changing locked dependencies.
 
-Only run `flakeup` or `nix flake update` when you explicitly want to refresh dependencies.
+Only run `flakeup` or the explicit update command above when you explicitly want to refresh dependencies.
 
 If a recent update breaks the build and you have not committed the broken `flake.lock`, restore the last checked-in version and rebuild:
 
 ```zsh
 cd nix
-git checkout -- flake.lock
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
+sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake .#caro
 ```
 
 If you already committed or otherwise want a specific rollback point, restore `flake.lock` from a known-good commit or set it back to the last working revisions before rebuilding.

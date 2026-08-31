@@ -18,8 +18,8 @@ If the `nixup` alias is not available yet, or `darwin-rebuild` is not installed 
 
 ```zsh
 cd nix
-nix flake update
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#air
+nix --extra-experimental-features "nix-command flakes" flake update
+sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake .#air
 ```
 
 2. Run
@@ -47,6 +47,6 @@ nixup
 
 ```zsh
 cd nix
-nix flake update
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#air
+nix --extra-experimental-features "nix-command flakes" flake update
+sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake .#air
 ```
