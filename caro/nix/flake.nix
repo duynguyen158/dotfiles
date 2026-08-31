@@ -132,7 +132,6 @@
               "viber"
               "vlc"
               "whatsapp"
-              "zalo"
               "zed"
             ];
             # Mac App Store apps go here
