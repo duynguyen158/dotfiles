@@ -22,6 +22,7 @@ in
       /usr/bin/sed -i.bak \
         -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
         -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
+        -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' \
         "$HOME/.config/herdr/runtime-config.toml"
     fi
     rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
