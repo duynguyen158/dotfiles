@@ -94,6 +94,7 @@ theme. A factory-level optional `pi.ui?.setTheme(...)` silently does nothing.
   assuming four leading spaces.
 
 - Herdr's `terminal` theme derives active-tab text and separator contrast from `panel_bg`, falling back to `surface_dim` when `panel_bg = "reset"`. Keep `surface_dim` symmetric across both dark (`#011627`) and light (`#f0f0f0`) appearance-switcher `sed` rules in `herdr.nix` and `tmux.nix`.
+- Herdr sidebar active workspaces and agents use `active_row_bg` with `text` (terminal foreground). When `active_row_bg` is unconfigured, `terminal` theme defaults to `Color::DarkGray` (ANSI 8), causing dark text (`#403f53`) on dark slate background in Light Owl (~1.4:1 contrast). Set `active_row_bg = "#d3e8f8"` / `selection_bg = "#c2e2f9"` in Light Owl (8.1:1 contrast) and `active_row_bg = "#0b253a"` / `selection_bg = "#1d3b53"` in Night Owl (11.6:1 contrast).
 - `theme.custom.panel_bg` colors the whole tab bar row canvas as well as floating panels; if `panel_bg` is stuck on light mode (`#f0f0f0`), the empty tab row renders as a bright white bar across dark Ghostty terminal.
 - After Herdr package upgrades, running servers on older wire protocols reject `herdr server reload-config` with `protocol_mismatch`, blocking appearance reloads from `dark-notify`. Check `herdr status` for `restart_needed: yes` and restart the server with `herdr server stop` if themes stop adapting.
 - When Herdr theme token behavior is unclear, resolve the packaged source with `nix eval --raw .#darwinPackages.herdr.src` and inspect the renderer instead of guessing token names.

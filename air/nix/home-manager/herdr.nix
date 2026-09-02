@@ -17,12 +17,16 @@ in
         -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' \
         -e 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' \
         -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' \
+        -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/' \
+        -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/' \
         "$HOME/.config/herdr/runtime-config.toml"
     else
       /usr/bin/sed -i.bak \
         -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
         -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
         -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' \
+        -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/' \
+        -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/' \
         "$HOME/.config/herdr/runtime-config.toml"
     fi
     rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
@@ -46,6 +50,8 @@ in
     # Light Owl uses its light panel surface; Night Owl matches its dark canvas.
     panel_bg = "reset"
     accent = "reset"
+    active_row_bg = "reset"
+    selection_bg = "reset"
     # Keep Herdr on the terminal palette for shell content and status colors.
     # Do not use ANSI gray for surface/sidebar roles: in Night Owlish Light,
     # those colors collapse active rows and labels into low-contrast gray.
@@ -54,7 +60,6 @@ in
     overlay0 = "reset"
     overlay1 = "reset"
     subtext0 = "reset"
-
     [terminal]
     # Match the tmux split/new-window habit: open new shells where the current
     # pane is, and keep macOS login-shell PATH setup intact.

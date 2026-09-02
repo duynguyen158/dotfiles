@@ -147,14 +147,22 @@ in
         [ -f "$config" ] || return 0
         cp "$config" "$runtime" || return 0
         if [ "$mode" = "dark" ]; then
-          /usr/bin/sed -i.bak 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' "$runtime"
-          /usr/bin/sed -i.bak 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' "$runtime"
-          /usr/bin/sed -i.bak 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' "$runtime"
+          /usr/bin/sed -i.bak \
+            -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' \
+            -e 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' \
+            -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' \
+            -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/' \
+            -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/' \
+            "$runtime"
           rm -f "$runtime.bak"
         else
-          /usr/bin/sed -i.bak 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' "$runtime"
-          /usr/bin/sed -i.bak 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' "$runtime"
-          /usr/bin/sed -i.bak 's/^[[:space:]]*accent = .*/accent = "#536767"/' "$runtime"
+          /usr/bin/sed -i.bak \
+            -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
+            -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
+            -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' \
+            -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/' \
+            -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/' \
+            "$runtime"
           rm -f "$runtime.bak"
         fi
         HERDR_CONFIG_PATH="$runtime" "$herdr" server reload-config >/dev/null 2>&1 || true
