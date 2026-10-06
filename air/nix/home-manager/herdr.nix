@@ -34,6 +34,16 @@ in
         "$HOME/.config/herdr/runtime-config.toml"
     fi
     rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
+    server_pid=$(/bin/ps -eo pid,command 2>/dev/null | /usr/bin/grep '[h]erdr server' | /usr/bin/awk '{print $1}' | /usr/bin/head -n 1)
+    if [ -n "$server_pid" ]; then
+      server_bin=$(/usr/sbin/lsof -p "$server_pid" 2>/dev/null | /usr/bin/awk '$4 == "txt" && $NF ~ /\/herdr$/ {print $NF; exit}')
+      if [ -n "$server_bin" ] && [ -x "$server_bin" ]; then
+        if ! HERDR_CONFIG_PATH="$HOME/.config/herdr/runtime-config.toml" "$server_bin" config check >/dev/null 2>&1; then
+          /usr/bin/sed -i.bak -e '/^\[theme\.custom\.dark\]$/,/^\[terminal\]$/ { /^\[terminal\]$/!d; }' "$HOME/.config/herdr/runtime-config.toml"
+          rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
+        fi
+      fi
+    fi
   '';
 
   xdg.configFile."herdr/config.toml".text = ''

@@ -194,6 +194,10 @@ in
             local server_bin
             server_bin=$(lsof -p "$server_pid" 2>/dev/null | awk '$4 == "txt" && $NF ~ /\/herdr$/ {print $NF; exit}')
             if [ -n "$server_bin" ] && [ -x "$server_bin" ]; then
+              if ! HERDR_CONFIG_PATH="$runtime" "$server_bin" config check >/dev/null 2>&1; then
+                /usr/bin/sed -i.bak -e '/^\[theme\.custom\.dark\]$/,/^\[terminal\]$/ { /^\[terminal\]$/!d; }' "$runtime"
+                rm -f "$runtime.bak"
+              fi
               HERDR_CONFIG_PATH="$runtime" "$server_bin" server reload-config >/dev/null 2>&1 || true
             fi
           fi
