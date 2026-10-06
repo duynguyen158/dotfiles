@@ -14,19 +14,23 @@ in
     install -m 644 "$HOME/.config/herdr/config.toml" "$HOME/.config/herdr/runtime-config.toml"
     if /usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null | /usr/bin/grep -q Dark; then
       /usr/bin/sed -i.bak \
-        -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' \
-        -e 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' \
-        -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' \
-        -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/' \
-        -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/' \
+        -e '/^\[theme\.custom\]$/,/^\[theme\.custom\.dark\]$/ {
+          s/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/
+          s/^[[:space:]]*accent = .*/accent = "#6f8793"/
+          s/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/
+          s/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/
+          s/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/
+        }' \
         "$HOME/.config/herdr/runtime-config.toml"
     else
       /usr/bin/sed -i.bak \
-        -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
-        -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
-        -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' \
-        -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/' \
-        -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/' \
+        -e '/^\[theme\.custom\]$/,/^\[theme\.custom\.dark\]$/ {
+          s/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/
+          s/^[[:space:]]*accent = .*/accent = "#536767"/
+          s/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/
+          s/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/
+          s/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/
+        }' \
         "$HOME/.config/herdr/runtime-config.toml"
     fi
     rm -f "$HOME/.config/herdr/runtime-config.toml.bak"
@@ -44,6 +48,9 @@ in
     # The terminal theme uses the host terminal's foreground/background and
     # 16-color palette instead of hard-coding one static Herdr palette.
     name = "terminal"
+    auto_switch = true
+    dark_name = "terminal"
+    light_name = "terminal"
 
     [theme.custom]
     # Activation and dark-notify replace panel_bg/accent per appearance:
@@ -60,6 +67,20 @@ in
     overlay0 = "reset"
     overlay1 = "reset"
     subtext0 = "reset"
+
+    [theme.custom.dark]
+    panel_bg = "#011627"
+    accent = "#6f8793"
+    surface_dim = "#011627"
+    active_row_bg = "#0b253a"
+    selection_bg = "#1d3b53"
+
+    [theme.custom.light]
+    panel_bg = "#f0f0f0"
+    accent = "#536767"
+    surface_dim = "#f0f0f0"
+    active_row_bg = "#d3e8f8"
+    selection_bg = "#c2e2f9"
     [terminal]
     # Match the tmux split/new-window habit: open new shells where the current
     # pane is, and keep macOS login-shell PATH setup intact.

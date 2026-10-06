@@ -166,24 +166,38 @@ in
         cp "$config" "$runtime" || return 0
         if [ "$mode" = "dark" ]; then
           /usr/bin/sed -i.bak \
-            -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/' \
-            -e 's/^[[:space:]]*accent = .*/accent = "#6f8793"/' \
-            -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/' \
-            -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/' \
-            -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/' \
+            -e '/^\[theme\.custom\]$/,/^\[theme\.custom\.dark\]$/ {
+              s/^[[:space:]]*panel_bg = .*/panel_bg = "#011627"/
+              s/^[[:space:]]*accent = .*/accent = "#6f8793"/
+              s/^[[:space:]]*surface_dim = .*/surface_dim = "#011627"/
+              s/^[[:space:]]*active_row_bg = .*/active_row_bg = "#0b253a"/
+              s/^[[:space:]]*selection_bg = .*/selection_bg = "#1d3b53"/
+            }' \
             "$runtime"
           rm -f "$runtime.bak"
         else
           /usr/bin/sed -i.bak \
-            -e 's/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/' \
-            -e 's/^[[:space:]]*accent = .*/accent = "#536767"/' \
-            -e 's/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/' \
-            -e 's/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/' \
-            -e 's/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/' \
+            -e '/^\[theme\.custom\]$/,/^\[theme\.custom\.dark\]$/ {
+              s/^[[:space:]]*panel_bg = .*/panel_bg = "#f0f0f0"/
+              s/^[[:space:]]*accent = .*/accent = "#536767"/
+              s/^[[:space:]]*surface_dim = .*/surface_dim = "#f0f0f0"/
+              s/^[[:space:]]*active_row_bg = .*/active_row_bg = "#d3e8f8"/
+              s/^[[:space:]]*selection_bg = .*/selection_bg = "#c2e2f9"/
+            }' \
             "$runtime"
           rm -f "$runtime.bak"
         fi
-        HERDR_CONFIG_PATH="$runtime" "$herdr" server reload-config >/dev/null 2>&1 || true
+        if ! HERDR_CONFIG_PATH="$runtime" "$herdr" server reload-config >/dev/null 2>&1; then
+          local server_pid
+          server_pid=$(ps -eo pid,command 2>/dev/null | grep '[h]erdr server' | awk '{print $1}' | head -n 1)
+          if [ -n "$server_pid" ]; then
+            local server_bin
+            server_bin=$(lsof -p "$server_pid" 2>/dev/null | awk '$4 == "txt" && $NF ~ /\/herdr$/ {print $NF; exit}')
+            if [ -n "$server_bin" ] && [ -x "$server_bin" ]; then
+              HERDR_CONFIG_PATH="$runtime" "$server_bin" server reload-config >/dev/null 2>&1 || true
+            fi
+          fi
+        fi
       }
 
       update_herdr_config
