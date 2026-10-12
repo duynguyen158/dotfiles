@@ -138,11 +138,15 @@ in
             "json"
             "yaml"
             "markdown"
+            "markdown_inline"
             "bash"
             "python"
           ];
         };
       };
+
+      # render-markdown — render Markdown in the buffer; :RenderMarkdown toggle shows raw text
+      render-markdown.enable = true;
 
       # lsp — Language Server Protocol: powers go-to-definition, hover docs, rename, etc.
       lsp = {
