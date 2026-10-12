@@ -9,6 +9,9 @@ inserting newlines into the file. A word wider than the window still splits.
 Run `nixup` and reopen Neovim to apply config changes; use `:set wrap linebreak`
 to enable word-aware wrapping in an existing window immediately.
 
+Neo-tree (`<leader>e`) shows hidden files and folders, including git-ignored items,
+by default. Press `H` in the tree to toggle their visibility.
+
 Markdown files render automatically in normal mode using `render-markdown.nvim`.
 Insert mode shows raw Markdown for editing. Use `:RenderMarkdown toggle` to switch
 rendering off or on, or `:RenderMarkdown preview` for a rendered split preview.

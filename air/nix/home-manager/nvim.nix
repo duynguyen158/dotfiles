@@ -107,6 +107,7 @@ in
       neo-tree = {
         enable = true;
         settings.window.width = 30;
+        settings.filesystem.filtered_items.visible = true;
       };
 
       # web-devicons — file-type icons used by neo-tree, telescope, bufferline, etc.
