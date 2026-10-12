@@ -48,6 +48,14 @@ in
         update_interval = 3000,
         fallback = 'dark',
       })
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('CsvViewAutoEnable', { clear = true }),
+        pattern = { 'csv', 'tsv' },
+        callback = function(event)
+          require('csvview').enable(event.buf)
+        end,
+      })
     '';
 
     # Editor behaviour options (equivalent to `set ...` in a vimrc).
@@ -58,6 +66,7 @@ in
       shiftwidth = 2;        # >> and << indent/dedent by 2 spaces
       expandtab = true;      # pressing Tab inserts spaces instead of a tab character
       wrap = true;           # soft-wrap long lines at the window width without changing the file
+      linebreak = true;      # wrap at word boundaries instead of splitting words
       scrolloff = 8;         # always keep 8 lines visible above/below the cursor
       signcolumn = "yes";    # always show the gutter column (prevents layout shifting when diagnostics appear)
       termguicolors = true;  # enable 24-bit colour (required by most modern themes)
@@ -126,6 +135,7 @@ in
             "yaml"
             "markdown"
             "markdown_inline"
+            "latex"
             "bash"
             "python"
           ];
@@ -133,7 +143,28 @@ in
       };
 
       # render-markdown — render Markdown in the buffer; :RenderMarkdown toggle shows raw text
-      render-markdown.enable = true;
+      render-markdown = {
+        enable = true;
+        settings.latex.converter = "latex2text";
+      };
+
+      # vimtex — compile .tex documents with Tectonic and open PDFs in macOS Preview
+      vimtex = {
+        enable = true;
+        texlivePackage = null; # Tectonic supplies the TeX engine instead of TeX Live
+        settings = {
+          compiler_method = "tectonic";
+          view_method = "general";
+          view_general_viewer = "/usr/bin/open";
+          view_general_options = "-a Preview @pdf";
+        };
+      };
+
+      # csvview — visually align CSV/TSV fields without rewriting the file
+      csvview = {
+        enable = true;
+        settings.view.display_mode = "border";
+      };
 
       # lsp — Language Server Protocol: powers go-to-definition, hover docs, rename, etc.
       lsp = {
@@ -241,12 +272,14 @@ in
       };
     };
 
-    # Formatter binaries that need to be on PATH inside neovim.
+    # Runtime tools for formatting, Markdown math, and LaTeX compilation.
     extraPackages = with pkgs; [
       prettierd # faster prettier daemon
       nixfmt    # nix formatter
       pyright   # Python LSP server
       ruff      # Python formatter + linter
+      python3Packages.pylatexenc # latex2text converts Markdown math to Unicode
+      tectonic  # self-contained LaTeX compiler used by VimTeX
     ];
   };
 
