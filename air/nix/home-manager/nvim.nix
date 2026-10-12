@@ -57,7 +57,7 @@ in
       tabstop = 2;           # a tab character visually spans 2 spaces
       shiftwidth = 2;        # >> and << indent/dedent by 2 spaces
       expandtab = true;      # pressing Tab inserts spaces instead of a tab character
-      wrap = false;          # don't soft-wrap long lines
+      wrap = true;           # soft-wrap long lines at the window width without changing the file
       scrolloff = 8;         # always keep 8 lines visible above/below the cursor
       signcolumn = "yes";    # always show the gutter column (prevents layout shifting when diagnostics appear)
       termguicolors = true;  # enable 24-bit colour (required by most modern themes)
