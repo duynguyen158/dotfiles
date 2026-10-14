@@ -71,3 +71,14 @@ stow -d .config -t ~/.config .
 ```
 
 to sync .config dotfiles.
+
+## Studio shortcuts
+
+After rebuilding with `nixup`, open a new Zsh shell:
+
+- `studio` opens SSH using the existing `studio` host configuration.
+- `studiomp` starts or reattaches to the persistent Studio tmux session `studiomp`, running native OMP in `~/Projects`.
+
+Close the SSH connection; OMP keeps running on Studio. Run `studiomp` again to reattach to the same session. You can also use your tmux prefix followed by `d` to detach.
+
+This is a separate Studio session, not a transfer of the current Caro session. Persistence covers client disconnection, not Studio reboot, OMP exiting, or manually killing the tmux session.
