@@ -2,9 +2,16 @@
 
 let
   herdrRuntimeConfig = "${config.home.homeDirectory}/.config/herdr/runtime-config.toml";
+  herdrStudiomp = pkgs.writeShellScriptBin "herdr-studiomp" ''
+    export PATH="${lib.makeBinPath [ pkgs.herdr pkgs.jq pkgs.openssh ]}:$PATH"
+    ${builtins.readFile ./herdr-studiomp.sh}
+  '';
 in
 {
-  home.packages = [ pkgs.herdr ];
+  home.packages = [
+    pkgs.herdr
+    herdrStudiomp
+  ];
 
   # Herdr's live config is a writable copy so activation and dark-notify can
   # switch appearance-sensitive panel/active-tab contrast without mutating HM links.

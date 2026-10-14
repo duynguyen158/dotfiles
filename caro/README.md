@@ -77,8 +77,16 @@ to sync .config dotfiles.
 After rebuilding with `nixup`, open a new Zsh shell:
 
 - `studio` opens SSH using the existing `studio` host configuration.
-- `studiomp` starts or reattaches to the persistent Studio tmux session `studiomp`, running native OMP in `~/Projects`.
+- `studiomp` opens or resumes Studio's native OMP agent in a persistent Herdr `studiomp` session, working in `~/Projects`.
 
-Close the SSH connection; OMP keeps running on Studio. Run `studiomp` again to reattach to the same session. You can also use your tmux prefix followed by `d` to detach.
+Register Studio once with the native CLI, keeping the saved machine profile out of these dotfiles:
 
-This is a separate Studio session, not a transfer of the current Caro session. Persistence covers client disconnection, not Studio reboot, OMP exiting, or manually killing the tmux session.
+```sh
+herdr machine add studio --label Studio --remote-session studiomp
+herdr machine list --json
+herdr machine status Studio --json
+```
+
+Inside Caro Herdr, `studiomp` attaches directly to the remote OMP terminal; `Ctrl-b q` detaches that terminal stream without stopping OMP. Outside Herdr it opens the native remote Herdr UI. `studiomp --attach` forces direct terminal attachment; `--tui` requires a terminal outside Herdr. The shortcut validates the saved machine, session and agent rather than starting a duplicate or falling back to Local.
+
+Close the SSH connection; the Studio process keeps running. Run `studiomp` again to reattach. This is not a transfer of the current Caro conversation or files. Disconnect persistence does not mean a running process survives Studio reboot, OMP exiting, or stopping its Herdr server.

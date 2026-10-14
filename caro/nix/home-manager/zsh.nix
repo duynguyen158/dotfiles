@@ -162,7 +162,7 @@
       flakeup = "(cd ~/.dotfiles/caro/nix && nix flake update)";
       nixup = "(cd ~/.dotfiles/caro/nix && sudo darwin-rebuild switch --flake .#caro)";
       studio = "ssh studio";
-      studiomp = "ssh -t studio 'exec /opt/homebrew/bin/tmux new-session -A -s studiomp -c ~/Projects ~/.local/bin/omp'";
+      studiomp = "herdr-studiomp";
     };
 
     oh-my-zsh = {
