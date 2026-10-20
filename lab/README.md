@@ -65,7 +65,7 @@ Inside `~/.dotfiles/lab/nix`:
 ## Credentials & Host-Local Setup
 
 - **Secrets**: Secrets and local environment overrides stay in `~/.secrets/` (host-local) and are never committed to git.
-- **Git Commit Signing via OpenSSH**: Git commit signing is configured with OpenSSH (`gpg.format = ssh`, using `ssh-keygen`) and configured for public key `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGVR3QQs3FFCSwP1EXFcS4No2pnDNhGmrB9siXeycKkP`. For commits to succeed, the matching private key must be available to SSH, either:
+- **Git Commit Signing via OpenSSH**: Git commit signing is configured with OpenSSH (`gpg.format = ssh`, using `ssh-keygen`) and configured for the public key. For commits to succeed, the matching private key must be available to SSH, either:
   - Loaded into an SSH agent with agent forwarding (`ssh -A lab`) if you explicitly choose to trust Lab (note that root or other processes on Lab can access the forwarded agent socket while connected); or
   - A matching host-local key loaded in `ssh-agent` on Lab.
   - Private keys should **never** be copied unencrypted or committed to the repository.
