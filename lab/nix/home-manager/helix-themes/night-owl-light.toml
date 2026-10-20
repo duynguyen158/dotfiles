@@ -1,0 +1,106 @@
+# Night Owlish Light — ported from Sarah Drasner's VS Code Night Owl Light theme.
+# Palette matches night-owlish-light/colors/night-owlish-light.lua (the
+# Neovim port used in nvim.nix), which is itself derived from the upstream
+# theme at https://github.com/sdras/night-owl-vscode-theme.
+
+"attribute" = { fg = "func", modifiers = ["italic"] }
+"type" = "type"
+"type.builtin" = "type"
+"constructor" = "type"
+"constant" = "func"
+"constant.builtin" = "func"
+"constant.numeric" = "number"
+"constant.character.escape" = "operator"
+"string" = "string"
+"string.special" = "operator"
+"comment" = { fg = "comment", modifiers = ["italic"] }
+"variable" = "fg"
+"variable.builtin" = "boolean"
+"variable.parameter" = "operator"
+"variable.other.member" = "fg"
+"label" = "keyword"
+"punctuation" = "fg"
+"punctuation.delimiter" = "fg"
+"punctuation.bracket" = "fg"
+"keyword" = { fg = "keyword", modifiers = ["italic"] }
+"keyword.control" = { fg = "keyword", modifiers = ["italic"] }
+"keyword.operator" = "operator"
+"keyword.directive" = "keyword"
+"keyword.storage" = { fg = "keyword", modifiers = ["italic"] }
+"operator" = "operator"
+"function" = { fg = "func", modifiers = ["italic"] }
+"function.builtin" = "func"
+"function.macro" = "func"
+"tag" = "keyword"
+"namespace" = "type"
+"special" = "operator"
+"markup.heading" = { fg = "gold", modifiers = ["bold"] }
+"markup.list" = "operator"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "comment", modifiers = ["underlined"] }
+"markup.link.text" = "func"
+"markup.quote" = { fg = "comment", modifiers = ["italic"] }
+"markup.raw" = "string"
+"diff.plus" = "git-add"
+"diff.minus" = "error"
+"diff.delta" = "warning"
+"diagnostic.error" = { underline = { color = "error", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "warning", style = "curl" } }
+"diagnostic.info" = { underline = { color = "func", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "comment", style = "curl" } }
+"error" = "error"
+"warning" = "warning"
+"info" = "func"
+"hint" = "comment"
+
+"ui.background" = { fg = "fg", bg = "bg" }
+"ui.text" = "fg"
+"ui.text.focus" = "fg"
+"ui.cursor.primary" = { fg = "bg", bg = "keyword" }
+"ui.cursor.match" = { fg = "operator", modifiers = ["underlined"] }
+"ui.cursorline.primary" = { bg = "line-bg" }
+"ui.linenr" = { fg = "line-nr" }
+"ui.linenr.selected" = { fg = "keyword", bg = "line-bg", modifiers = ["bold"] }
+"ui.selection.primary" = { bg = "selection" }
+"ui.selection" = { bg = "selection" }
+"ui.statusline" = { fg = "fg", bg = "line-bg" }
+"ui.statusline.inactive" = { fg = "line-nr", bg = "line-bg" }
+"ui.statusline.normal" = { fg = "bg", bg = "func", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "bg", bg = "git-add", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "bg", bg = "keyword", modifiers = ["bold"] }
+"ui.popup" = { fg = "fg", bg = "pmenu-bg" }
+"ui.window" = { fg = "border" }
+"ui.help" = { fg = "fg", bg = "pmenu-bg" }
+"ui.menu" = { fg = "fg", bg = "pmenu-bg" }
+"ui.menu.selected" = { fg = "fg", bg = "pmenu-sel" }
+"ui.bufferline" = { fg = "line-nr", bg = "bg" }
+"ui.bufferline.active" = { fg = "fg", bg = "line-bg", modifiers = ["bold"] }
+"ui.virtual.ruler" = { bg = "line-bg" }
+"ui.virtual.whitespace" = { fg = "border" }
+"ui.virtual.indent-guide" = { fg = "border" }
+"ui.virtual.inlay-hint" = { fg = "line-nr" }
+"ui.gutter" = { bg = "bg" }
+"ui.gutter.selected" = { bg = "bg" }
+
+[palette]
+bg        = "#FBFBFB"
+fg        = "#403f53"
+comment   = "#989fb1"
+keyword   = "#994cc3"
+func      = "#4876d6"
+string    = "#c96765"
+number    = "#aa0982"
+type      = "#111111"
+operator  = "#0c969b"
+boolean   = "#bc5454"
+error     = "#E64D49"
+warning   = "#daaa01"
+gold      = "#775f00"
+selection = "#d5e3f7"
+line-bg   = "#F0F0F0"
+line-nr   = "#aab1be"
+border    = "#d0d0d0"
+pmenu-bg  = "#F0F0F0"
+pmenu-sel = "#dce4f5"
+git-add   = "#49d0c5"

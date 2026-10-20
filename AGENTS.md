@@ -2,19 +2,20 @@
 
 Nix-managed dotfiles for my machines. Each has its own directory with the same internal layout.
 
-| Directory  | Machine               |
-| ---------- | --------------------- |
-| `caro/`    | macOS (Apple Silicon) |
-| `air/`     | macOS (Apple Silicon) |
-| `spectre/` | NixOS on WSL2         |
+| Directory  | Machine               | Platform               | Management                            |
+| ---------- | --------------------- | ---------------------- | ------------------------------------- |
+| `caro/`    | macOS (Apple Silicon) | `aarch64-darwin`       | `nix-darwin` + Home Manager + Homebrew|
+| `air/`     | macOS (Apple Silicon) | `aarch64-darwin`       | `nix-darwin` + Home Manager + Homebrew|
+| `spectre/` | NixOS on WSL2         | `x86_64-linux`         | NixOS modules + Home Manager          |
+| `lab/`     | Headless ARM Linux    | `aarch64-linux`        | Standalone Home Manager               |
 
 ## Directory layout
 
 ```
 <machine>/
-├── .config/            # XDG config files managed via GNU stow
+├── .config/            # optional XDG config files managed via GNU stow
 └── nix/
-    ├── flake.nix       # nix-darwin system config + Homebrew packages
+    ├── flake.nix       # machine-specific system or standalone Home Manager config
     ├── flake.lock
     └── home-manager/
         ├── default.nix # imports all modules below
@@ -36,6 +37,10 @@ After `nixup`, re-stow if any `.config/` files changed:
 ```zsh
 cd ~/.dotfiles/<machine> && stow -d .config -t ~/.config .
 ```
+
+On `lab`, `nixup` runs standalone `home-manager switch --flake ~/.dotfiles/lab/nix#lab`
+without `sudo`; `flakeup` updates its lockfile first. There is no `lab/.config`
+directory or Stow step. See `lab/README.md` for bootstrap and backup instructions.
 
 ## Agent skills
 
@@ -60,9 +65,9 @@ The `caro` macOS account is currently `duy.nguyen` (not the legacy `duynguyen`).
 
 ## Homebrew note
 
-`caro` and `air` pin Homebrew via a `brew-src` flake input to avoid a patched-brew compatibility bug. If adding a new machine, copy this pattern from `air/nix/flake.nix`.
+`caro` and `air` pin Homebrew via a `brew-src` flake input to avoid a patched-brew compatibility bug. If adding a new macOS machine, copy this pattern from `air/nix/flake.nix`.
+Note that this macOS Homebrew pattern does not apply to `lab` (headless ARM Linux) or `spectre` (NixOS), which manage packages purely via Nix and Home Manager without Homebrew.
 For third-party taps on Homebrew versions with tap trust checks, remember nix-darwin's Homebrew activation runs under `sudo` and does not inherit `environment.variables`; put activation-only Homebrew env vars under `homebrew.onActivation.extraEnv`.
-
 If `nixup` fails in Homebrew Bundle with `google-chrome` reporting an existing
 App under `/opt/homebrew/Caskroom`, Chrome's self-updater may have advanced
 `/Applications/Google Chrome.app` while the cask receipt stayed old. Close

@@ -2,6 +2,13 @@
 
 Declared system packages and settings for my machines, using Nix.
 
+## Machines
+
+- `caro` — macOS (Apple Silicon), managed with `nix-darwin` + Home Manager + Homebrew.
+- `air` — macOS (Apple Silicon), managed with `nix-darwin` + Home Manager + Homebrew.
+- `spectre` — NixOS on WSL2 (x86_64-linux), managed with NixOS modules + Home Manager.
+- [`lab`](lab/README.md) — Headless ARM Linux (aarch64-linux, Ubuntu 22.04 LTS), managed with standalone Home Manager without GUI apps or Homebrew.
+
 ## Neovim
 
 On `air` and `caro`, long lines soft-wrap at word boundaries by default without
