@@ -42,6 +42,17 @@ On `lab`, `nixup` runs standalone `home-manager switch --flake ~/.dotfiles/lab/n
 without `sudo`; `flakeup` updates its lockfile first. There is no `lab/.config`
 directory or Stow step. See `lab/README.md` for bootstrap and backup instructions.
 
+### OMP upgrades
+
+Keep the OMP release pins in `caro`, `air`, and `lab` synchronized; macOS ARM64
+and Linux ARM64 use different release assets and hashes. Review every intervening
+release's breaking changes against extensions and skills before activation.
+Check `command -v omp` and its symlink target: a `~/.local/bin/omp` override can
+shadow the Home Manager package. Keep any temporary Nix override GC-rooted.
+Verify with `omp --smoke-test`, a fresh `omp skill list "$PWD" --json`, and an
+actual no-prompt TUI launch; `--version`/`--help` alone do not load bundled workers.
+Do not update unrelated flake inputs for a pinned-binary upgrade.
+
 ## Agent skills
 
 - `.agents/skills/ide-theme-change/` — use for IDE, terminal, OMP/Pi, tmux, Neovim, Zed, and agent UI theme work.

@@ -3,10 +3,10 @@
 let
   omp = pkgs.stdenv.mkDerivation {
     pname = "omp";
-    version = "18.4.3";
+    version = "18.17.0";
     src = pkgs.fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.4.3/omp-darwin-arm64";
-      hash = "sha256-Ezno6YuC0+I0HRmLjhf9i1be0qjYO8dvgIaoWKynw0c=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.17.0/omp-darwin-arm64";
+      hash = "sha256-UfKDbyZ6i6bBLPtQ+A518DAcz7G9U1NfxvnfAxmdo2Q=";
     };
     dontUnpack = true;
     dontConfigure = true;

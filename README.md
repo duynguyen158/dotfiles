@@ -9,6 +9,13 @@ Declared system packages and settings for my machines, using Nix.
 - `spectre` — NixOS on WSL2 (x86_64-linux), managed with NixOS modules + Home Manager.
 - [`lab`](lab/README.md) — Headless ARM Linux (aarch64-linux, Ubuntu 22.04 LTS), managed with standalone Home Manager without GUI apps or Homebrew.
 
+## OMP
+
+`caro`, `air`, and `lab` pin OMP 18.17.0 release binaries and SHA-256 hashes in
+their `nix/home-manager/omp.nix` modules. Keep the version pins synchronized;
+macOS ARM64 and Linux ARM64 require different hashes. Run `nixup` on each
+machine to apply the pin, then restart OMP.
+
 ## Neovim
 
 On `air` and `caro`, long lines soft-wrap at word boundaries by default without

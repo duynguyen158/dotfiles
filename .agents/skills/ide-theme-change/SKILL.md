@@ -50,6 +50,17 @@ OMP theme files require all current schema tokens. Validate generated JSON for:
 - extra unsupported `colors` keys
 - variable references that are neither hex colors nor entries in `vars`
 
+Resolve the schema from the pinned OMP release, not `main`. In v18.17.0 it lives
+at `packages/tui/src/theme/theme-schema.json`; the older
+`packages/coding-agent/src/modes/theme/theme-schema.json` path is obsolete.
+The optional `terminal` section is not a new required color-token set.
+
+OMP v18.17.0 enables `tui.colorfulMarkdown` by default, using `terminal.ansi`
+or the terminal's palette for headings and emphasis. A changed Markdown hue
+does not by itself mean Night Owl failed to load; check this setting before
+changing the palette. Likewise, `display.shellVisualization` changes bash-card
+presentation by default. Do not silently disable either feature during upgrades.
+
 Key OMP mappings:
 
 - `toolPendingBg`, `toolSuccessBg`, `toolErrorBg`: OMP-specific. Use upstream widget/panel/notification/editor surface colors, not arbitrary light/dark fills.
