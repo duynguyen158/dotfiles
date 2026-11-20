@@ -3,10 +3,10 @@
 let
   omp = pkgs.stdenv.mkDerivation {
     pname = "omp";
-    version = "18.17.0";
+    version = "19.0.1";
     src = pkgs.fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.17.0/omp-linux-arm64";
-      hash = "sha256-qUI/16adhpv1FJMSJrIdT/VUdCJfV04pEf7EV/xHDmg=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v19.0.1/omp-linux-arm64";
+      hash = "sha256-I37eD0mU1h9SOALEz1YtTki650wYit15LQbQUbkHzs8=";
     };
     dontUnpack = true;
     dontConfigure = true;
@@ -124,6 +124,7 @@ in
         "thinkingXhigh": "pink",
         "bashMode": "green",
         "pythonMode": "yellow",
+        "btwMode": "purple",
         "statusLineBg": "statusBg",
         "statusLineSep": "dim",
         "statusLineModel": "purple",
@@ -234,6 +235,7 @@ in
         "thinkingXhigh": "purpleStrong",
         "bashMode": "greenStrong",
         "pythonMode": "goldStrong",
+        "btwMode": "purpleStrong",
         "statusLineSep": "fgMuted",
         "statusLineModel": "blueStrong",
         "statusLinePath": "tealStrong",

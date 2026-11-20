@@ -11,10 +11,13 @@ Declared system packages and settings for my machines, using Nix.
 
 ## OMP
 
-`caro`, `air`, and `lab` pin OMP 18.17.0 release binaries and SHA-256 hashes in
+`caro`, `air`, and `lab` pin OMP 19.0.1 release binaries and SHA-256 hashes in
 their `nix/home-manager/omp.nix` modules. Keep the version pins synchronized;
 macOS ARM64 and Linux ARM64 require different hashes. Run `nixup` on each
 machine to apply the pin, then restart OMP.
+
+The custom Night Owl themes include the required `btwMode` token for this release,
+reusing their existing purple accents.
 
 ## Neovim
 
